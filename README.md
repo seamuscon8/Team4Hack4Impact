@@ -1,4 +1,4 @@
-# name of non-profit
+# Team 4
 
 Hair Cut Website
 
