@@ -45,6 +45,8 @@ export default function About() {
           </p>
         </section>
       </div>
+      <hr style={{ margin: "auto", marginTop: "20px", marginBottom: "50px", width: "50%" }} />
+      <h1 style={{ textAlign: "center" }}>Meet our Barbers:</h1>
       <div className={styles.aboutBarbers}>
         {barbers.map((b) => (
           <BarberCard key={b.name} barber={b} />
