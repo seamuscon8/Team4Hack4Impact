@@ -6,3 +6,8 @@
   border-radius: 12px;
   background: #f8fafc;
 }
+
+.barberImage {
+  border-radius: 12px;
+  object-fit: cover;
+}

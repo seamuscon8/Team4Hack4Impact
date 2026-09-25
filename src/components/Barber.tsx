@@ -20,7 +20,7 @@ type BarberProps = {
 export function BarberCard({ barber }: BarberProps) {
   return (
     <div className={styles.card}>
-      <Image src={barber.image} alt={barber.name} width={290} height={250} />
+      <Image src={barber.image} alt={barber.name} width={290} height={250} className={styles.barberImage} />
 
       <h2>{barber.name}</h2>
       <p>
