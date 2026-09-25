@@ -1,6 +1,9 @@
 import Navbar from "@/components/Navbar";
 import styles from "./about-page.module.css";
 import Image from "next/image";
+import { BarberCard, createBarber } from "@/components/Barber";
+
+const barbers = [createBarber("Alex", 40, 4.8), createBarber("Jordan", 32, 4.5), createBarber("Sam", 28, 4.2)];
 
 export default function About() {
   return (
@@ -15,7 +18,7 @@ export default function About() {
             bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
             bluh bluh bluh bluh bluh bluh
           </p>
-          <Image src="/cover-photo.webp" alt="" width={400} height={200} />
+          <Image src="/images/haircut-stock.jpg" alt="Piece of crap image!" width={400} height={200} />
         </section>
       </div>
       <div className={styles.contactInfo}>
@@ -37,12 +40,9 @@ export default function About() {
         </section>
       </div>
       <div className={styles.aboutBarbers}>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
+        {barbers.map((b) => (
+          <BarberCard key={b.name} barber={b} />
+        ))}
       </div>
     </main>
   );
