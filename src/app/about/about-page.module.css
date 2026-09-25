@@ -1,5 +1,6 @@
 .aboutContent {
-  padding: 5%;
+  display: flex;
+  padding-inline: 2%;
 }
 
 .contactInfo {
