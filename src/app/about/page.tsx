@@ -3,7 +3,11 @@ import styles from "./about-page.module.css";
 import Image from "next/image";
 import { BarberCard, createBarber } from "@/components/Barber";
 
-const barbers = [createBarber("Alex", 40, 4.8), createBarber("Jordan", 32, 4.5), createBarber("Sam", 28, 4.2)];
+const barbers = [
+  createBarber("Alex", 40, 4.8, "whaddup"),
+  createBarber("Jordan", 32, 4.5, "yo"),
+  createBarber("Sam", 28, 4.2, "hey"),
+];
 
 export default function About() {
   return (

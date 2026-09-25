@@ -4,10 +4,11 @@ export type Barber = {
   name: string;
   hours: number;
   rating: number;
+  bio: string;
 };
 
-export function createBarber(name: string, hours: number, rating: number): Barber {
-  return { name, hours, rating };
+export function createBarber(name: string, hours: number, rating: number, bio: string): Barber {
+  return { name, hours, rating, bio };
 }
 
 type BarberProps = {
@@ -19,7 +20,10 @@ export function BarberCard({ barber }: BarberProps) {
     <div className={styles.card}>
       <h2>{barber.name}</h2>
       <p>
-        {barber.hours}, rating {barber.rating}
+        Hours: {barber.hours},<br />
+        Rating (0-5): {barber.rating}
+        <br />
+        Bio: {barber.bio}
       </p>
     </div>
   );
