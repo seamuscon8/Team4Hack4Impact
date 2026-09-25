@@ -3,6 +3,7 @@ import styles from "./about-page.module.css";
 import Image from "next/image";
 import { BarberCard, createBarber } from "@/components/Barber";
 
+// Creating mock barber profiles
 const barbers = [
   createBarber("Alex", 40, 4.8, "whaddup"),
   createBarber("Jordan", 32, 4.5, "yo"),
@@ -13,8 +14,8 @@ export default function About() {
   return (
     <main>
       <Navbar />
+      <h1 style={{ textAlign: "center" }}>About</h1>
       <div className={styles.aboutContent}>
-        <h1>About</h1>
         <section>
           <h2>Our Mission</h2>
           <p>
@@ -22,9 +23,10 @@ export default function About() {
             bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
             bluh bluh bluh bluh bluh bluh
           </p>
-          <Image src="/images/haircut-stock.jpg" alt="Piece of crap image!" width={400} height={200} />
         </section>
+        <Image src="/images/haircut-stock.jpg" alt="Piece of crap image!" width={400} height={200} />
       </div>
+      <hr style={{ margin: "auto", marginTop: "50px", width: "50%" }} />
       <div className={styles.contactInfo}>
         <section>
           <h2>Location</h2>
