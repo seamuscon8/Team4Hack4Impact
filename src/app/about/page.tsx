@@ -14,24 +14,22 @@ export default function About() {
   return (
     <main>
       <Navbar />
-      <h1 style={{ textAlign: "center" }}>About</h1>
+      <h1 style={{ textAlign: "center" }}>About Us</h1>
       <div className={styles.aboutContent}>
         <section>
-          <h2>Our Mission</h2>
+          <h2>We. Love. Cutting. Hair.</h2>
           <p>
-            {" "}
             bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
             bluh bluh bluh bluh bluh bluh
           </p>
         </section>
         <Image src="/images/haircut-stock.jpg" alt="Piece of crap image!" width={400} height={200} />
       </div>
-      <hr style={{ margin: "auto", marginTop: "50px", width: "50%" }} />
+      <hr className={styles.hrSpacing} />
       <div className={styles.contactInfo}>
         <section>
           <h2>Location</h2>
           <p>
-            {" "}
             bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
             bluh bluh bluh bluh bluh bluh
           </p>
@@ -39,13 +37,12 @@ export default function About() {
         <section>
           <h2>Hours</h2>
           <p>
-            {" "}
             bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
             bluh bluh bluh bluh bluh bluh
           </p>
         </section>
       </div>
-      <hr style={{ margin: "auto", marginTop: "20px", marginBottom: "50px", width: "50%" }} />
+      <hr className={styles.hrSpacing} />
       <h1 style={{ textAlign: "center" }}>Meet our Barbers:</h1>
       <div className={styles.aboutBarbers}>
         {barbers.map((b) => (

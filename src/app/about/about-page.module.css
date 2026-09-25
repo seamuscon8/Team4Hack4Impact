@@ -1,3 +1,9 @@
+.hrSpacing {
+  margin: auto;
+  margin-top: 50px;
+  width: 50%;
+}
+
 .aboutContent {
   display: flex;
   gap: 50px;
