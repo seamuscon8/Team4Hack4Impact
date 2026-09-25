@@ -23,7 +23,7 @@ The {non-profit name} team consists of {#} Cal Poly students. Over the course of
 
 
 - [Seamus Connolly](https://www.linkedin.com/) - Tech Lead
-- [First Last](https://www.linkedin.com/) - Software Developer
+- [Abhay Sanilnath](https://www.linkedin.com/) - Software Developer
 - [First Last](https://www.linkedin.com/) - Software Developer
 - [First Last](https://www.linkedin.com/) - Software Developer
 
