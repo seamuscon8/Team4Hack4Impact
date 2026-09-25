@@ -5,9 +5,9 @@ import { BarberCard, createBarber } from "@/components/Barber";
 
 // Creating mock barber profiles
 const barbers = [
-  createBarber("Alex", 40, 4.8, "whaddup"),
-  createBarber("Jordan", 32, 4.5, "yo"),
-  createBarber("Sam", 28, 4.2, "hey"),
+  createBarber("Alex", 40, 4.8, "whaddup", "/images/haircut-stock.jpg"),
+  createBarber("Jordan", 32, 4.5, "yo", "/images/haircut-stock.jpg"),
+  createBarber("Sam", 28, 4.2, "hey", "/images/haircut-stock.jpg"),
 ];
 
 export default function About() {
