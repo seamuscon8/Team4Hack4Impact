@@ -25,7 +25,7 @@ The {non-profit name} team consists of {#} Cal Poly students. Over the course of
 - [Seamus Connolly](https://www.linkedin.com/) - Tech Lead
 - [First Last](https://www.linkedin.com/) - Software Developer
 - [First Last](https://www.linkedin.com/) - Software Developer
-- [First Last](https://www.linkedin.com/) - Software Developer
+- [Christian Moreno-Alvarez](https://www.linkedin.com/in/christianma1/) - Software Developer
 
 ## Getting Started And Contributing
 
