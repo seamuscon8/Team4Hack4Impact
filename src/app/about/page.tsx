@@ -14,7 +14,8 @@ export default function About() {
   return (
     <main>
       <Navbar />
-      <h1 style={{ textAlign: "center" }}>About Us</h1>
+      {/* Barbershop Description */}
+      <h1 className={styles.centerText}>About Us</h1>
       <div className={styles.aboutContent}>
         <section>
           <h2>We. Love. Cutting. Hair.</h2>
@@ -23,8 +24,9 @@ export default function About() {
             bluh bluh bluh bluh bluh bluh
           </p>
         </section>
-        <Image src="/images/haircut-stock.jpg" alt="Piece of crap image!" width={400} height={200} />
+        <Image src="/images/haircut-stock.jpg" alt="Barber cutting hair" width={400} height={200} />
       </div>
+      {/* Location & Hours */}
       <hr className={styles.hrSpacing} />
       <div className={styles.contactInfo}>
         <section>
@@ -42,8 +44,9 @@ export default function About() {
           </p>
         </section>
       </div>
+      {/* List of Barbers */}
       <hr className={styles.hrSpacing} />
-      <h1 style={{ textAlign: "center" }}>Meet our Barbers:</h1>
+      <h1 className={styles.centerText}>Meet our Barbers:</h1>
       <div className={styles.aboutBarbers}>
         {barbers.map((b) => (
           <BarberCard key={b.name} barber={b} />
