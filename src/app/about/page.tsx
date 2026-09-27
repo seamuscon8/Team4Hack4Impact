@@ -38,15 +38,15 @@ export default function About() {
         <section>
           <h2 className={styles.heading}>Location</h2>
           <p>
-            bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
-            bluh bluh bluh bluh bluh bluh
+            420 Random Location <br />
+            City, State, 99999
           </p>
         </section>
         <section>
           <h2 className={styles.heading}>Hours</h2>
           <p>
-            bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
-            bluh bluh bluh bluh bluh bluh
+            Mon-Fri: 9 AM – 7 PM <br />
+            Saturday: 8 AM – 6 PM <br />* Sunday: Closed
           </p>
         </section>
       </div>
