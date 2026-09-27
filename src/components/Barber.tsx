@@ -3,14 +3,13 @@ import Image from "next/image";
 
 export type Barber = {
   name: string;
-  hours: number;
   rating: number;
   bio: string;
   image: string;
 };
 
-export function createBarber(name: string, hours: number, rating: number, bio: string, image: string): Barber {
-  return { name, hours, rating, bio, image };
+export function createBarber(name: string, rating: number, bio: string, image: string): Barber {
+  return { name, rating, bio, image };
 }
 
 type BarberProps = {
@@ -24,7 +23,6 @@ export function BarberCard({ barber }: BarberProps) {
 
       <h2>{barber.name}</h2>
       <p>
-        Hours: {barber.hours},<br />
         Rating (0-5): {barber.rating}
         <br />
         Bio: {barber.bio}
