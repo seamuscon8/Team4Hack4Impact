@@ -1,23 +1,23 @@
-.heading {
-  font-family: "Inter", sans-serif;
-  font-weight: 700;
+.h1Header {
+  text-transform: uppercase;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 3px;
 }
 
 .paragraph {
+  flex: 1;
+
   font-family: "Inter", sans-serif;
-  line-height: 1.5;
+  line-height: 1.6;
   font-size: 1rem;
+  color: rgb(86, 85, 83);
 }
 
 .hrSpacing {
-  width: 60%;
   margin: 60px auto;
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.centerText {
-  text-align: center;
 }
 
 .aboutContent {
@@ -28,8 +28,10 @@
   align-items: center;
 }
 
-.aboutText {
-  flex: 1;
+.aboutContent h2 {
+  text-transform: uppercase;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
 }
 
 .aboutImage {
@@ -45,6 +47,25 @@
   padding: 40px 10%;
 
   text-align: center;
+}
+
+.contactInfo h2 {
+  text-align: left;
+
+  text-transform: uppercase;
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  color: rgb(174, 154, 79);
+}
+
+.contactInfo p {
+  flex: 1;
+  text-align: left;
+
+  font-family: "Inter", sans-serif;
+  line-height: 1.6;
+  font-size: 1rem;
+  color: rgb(86, 85, 83);
 }
 
 .aboutBarbers {
