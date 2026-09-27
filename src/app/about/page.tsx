@@ -19,13 +19,11 @@ export default function About() {
       <div className={styles.aboutContent}>
         <section>
           <h2>We. Love. Cutting. Hair.</h2>
-          <p>
-            bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh
-            bluh bluh bluh bluh bluh bluh
-          </p>
+          <p> Insert stuff about our awesome barbershop! The freshest cuts, the sweetest styles. </p>
         </section>
         <Image src="/images/haircut-stock.jpg" alt="Barber cutting hair" width={400} height={200} />
       </div>
+
       {/* Location & Hours */}
       <hr className={styles.hrSpacing} />
       <div className={styles.contactInfo}>
@@ -44,6 +42,7 @@ export default function About() {
           </p>
         </section>
       </div>
+
       {/* List of Barbers */}
       <hr className={styles.hrSpacing} />
       <h1 className={styles.centerText}>Meet our Barbers:</h1>
