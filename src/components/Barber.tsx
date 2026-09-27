@@ -24,9 +24,9 @@ export function BarberCard({ barber }: BarberProps) {
       <h2>{barber.name}</h2>
       <p>
         Rating (0-5): {barber.rating}
-        <br /> <br />
-        Bio: {barber.bio}
+        <br />
       </p>
+      <p className={styles.barberBio}>{barber.bio}</p>
     </div>
   );
 }

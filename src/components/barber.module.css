@@ -17,3 +17,7 @@
   object-fit: cover;
   border-radius: 12px;
 }
+
+.barberBio {
+  font-style: italic;
+}
