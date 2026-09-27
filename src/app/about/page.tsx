@@ -19,9 +19,17 @@ export default function About() {
       <div className={styles.aboutContent}>
         <section>
           <h2>We. Love. Cutting. Hair.</h2>
-          <p> Insert stuff about our awesome barbershop! The freshest cuts, the sweetest styles. </p>
+          <p className={styles.aboutText}>
+            Insert stuff about our awesome barbershop! The freshest cuts, the sweetest styles.
+          </p>
         </section>
-        <Image src="/images/haircut-stock.jpg" alt="Barber cutting hair" width={400} height={200} />
+        <Image
+          src="/images/haircut-stock.jpg"
+          alt="Barber cutting hair"
+          width={400}
+          height={200}
+          className={styles.aboutImage}
+        />
       </div>
 
       {/* Location & Hours */}

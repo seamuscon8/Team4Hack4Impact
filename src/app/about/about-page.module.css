@@ -11,13 +11,26 @@
 .aboutContent {
   display: flex;
   gap: 50px;
-  padding-inline: 10%;
+  padding: 80px 10%;
+  align-items: center;
+}
+
+.aboutText {
+  flex: 1;
+}
+
+.aboutImage {
+  flex: 1;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 .contactInfo {
-  display: flex;
-  gap: 25px;
-  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  padding: 60px 10%;
+  text-align: center;
 }
 
 .aboutBarbers {
