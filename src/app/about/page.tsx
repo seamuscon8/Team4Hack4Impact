@@ -22,10 +22,8 @@ export default function About() {
       {/* Barbershop Description */}
       <div className={styles.aboutContent}>
         <section>
-          <h2 className={styles.heading}>We. Love. Cutting. Hair.</h2>
-          <p className={styles.paragraph}>
-            Insert stuff about our awesome barbershop! The freshest cuts, the sweetest styles.
-          </p>
+          <h2>We. Love. Cutting. Hair.</h2>
+          <p>Insert stuff about our awesome barbershop! The freshest cuts, the sweetest styles.</p>
         </section>
         <Image
           src="/images/haircut-stock.jpg"
@@ -40,14 +38,14 @@ export default function About() {
       <hr className={styles.hrSpacing} />
       <div className={styles.contactInfo}>
         <section>
-          <h2 className={styles.heading}>Location</h2>
+          <h2>Location</h2>
           <p>
             420 Random Location <br />
             City, State, 99999
           </p>
         </section>
         <section>
-          <h2 className={styles.heading}>Hours</h2>
+          <h2>Hours</h2>
           <p>
             Mon-Fri: 9 AM – 7 PM <br />
             Saturday: 8 AM – 6 PM <br />* Sunday: Closed
@@ -58,7 +56,7 @@ export default function About() {
       {/* List of Barbers */}
       <hr className={styles.hrSpacing} />
       <div className={styles.aboutBarbers}>
-        <h1 className={styles.h1Header}>Meet our Barbers:</h1>
+        <h1>Meet our Barbers:</h1>
         {barbers.map((b) => (
           <BarberCard key={b.name} barber={b} />
         ))}
