@@ -31,7 +31,7 @@
 
 .hero > * {
   /* Places "About Us" above white overlay */
-  color: black; /* text becomes black */
+  color: black;
   position: relative;
   z-index: 1;
 }
@@ -39,7 +39,7 @@
 /* ######### "About" Portion */
 
 .aboutContent {
-  /* Format spacing of text & image */
+  /* Formats spacing of text & image */
   align-items: center;
   display: flex;
   gap: 80px;

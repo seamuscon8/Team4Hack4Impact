@@ -14,6 +14,7 @@ const barbers = [
   createBarber("Christian", 5.0, "bluh bluh bluh bluh ", "/images/haircut-stock.jpg"),
 
   createBarber("Miles", 5.0, "bluh bluh bluh bluh bluh", "/images/haircut-stock.jpg"),
+
   createBarber("Angele", 5.0, "bluh bluh bluh", "/images/haircut-stock.jpg"),
 ];
 
