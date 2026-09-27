@@ -1,24 +1,64 @@
+/* Hero */
+
+.hero {
+  background-image: url("/images/haircut-stock.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  margin-bottom: 60px;
+  padding: 80px 20%;
+  position: relative;
+
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  text-align: center;
+}
+
+.hero::before {
+  /* White overlay */
+  background: rgba(255, 255, 255, 0.7);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.hero > * {
+  /* Places "About Us" above white overlay */
+  color: black; /* text becomes black */
+  position: relative;
+  z-index: 1;
+}
+
+/* ######### "About" Portion */
+
 .aboutContent {
+  /* Format spacing of text & image */
+  align-items: center;
   display: flex;
   gap: 80px;
   padding: 40px 10%;
-
-  align-items: center;
 }
 
 .aboutContent h2 {
-  text-transform: uppercase;
   font-family: "Inter", sans-serif;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
 .aboutContent p {
   flex: 1;
 
-  font-family: "Inter", sans-serif;
-  line-height: 1.6;
-  font-size: 1rem;
   color: rgb(86, 85, 83);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 .aboutText {
@@ -27,97 +67,66 @@
 }
 
 .aboutImage {
+  border-radius: 12px;
   flex: 1.5;
+  object-fit: cover;
   width: 100%;
   height: auto;
-  border-radius: 12px;
-  object-fit: cover;
 }
 
-.contactInfo {
+/* ######### Hours & Location */
+
+.scheduleInfo {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 40px;
+  grid-template-columns: repeat(2, 1fr);
   padding: 40px 10%;
 
   text-align: center;
 }
 
-.contactInfo h2 {
-  text-align: left;
-
-  text-transform: uppercase;
+.scheduleInfo h2 {
+  color: rgb(174, 154, 79);
   font-family: "Inter", sans-serif;
   font-weight: 500;
-  color: rgb(174, 154, 79);
-}
-
-.contactInfo p {
-  flex: 1;
   text-align: left;
-
-  font-family: "Inter", sans-serif;
-  line-height: 1.6;
-  font-size: 1rem;
-  color: rgb(86, 85, 83);
+  text-transform: uppercase;
 }
+
+.scheduleInfo p {
+  flex: 1;
+
+  color: rgb(86, 85, 83);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* ######### Barber Portion */
 
 .aboutBarbers {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
-  padding: 40px 10%;
-
   justify-content: center;
-  align-items: center;
+  padding: 40px 10%;
 }
 
 .barbersHeader {
-  text-transform: uppercase;
-  font-weight: 600;
-  text-align: center;
-  letter-spacing: 3px;
-
   font-family: "Inter", sans-serif;
   font-weight: 600;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
 }
+
+/* Consistent hr properties */
 
 .hrSpacing {
-  margin: 60px auto;
   border: none;
   border-top: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.hero {
-  background-image: url("/images/haircut-stock.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  position: relative;
-  height: 300px;
-  padding: 80px 20%;
-  margin-bottom: 60px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-
-  font-family: "Inter", sans-serif;
-  font-weight: 500;
-  font-size: 30px;
-  color: white;
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(255, 255, 255, 0.7);
-}
-
-.hero > * {
-  position: relative;
-  z-index: 1;
-  color: black; /* text becomes black */
+  margin: 60px auto;
 }
