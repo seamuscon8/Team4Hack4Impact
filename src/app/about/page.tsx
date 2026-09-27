@@ -44,9 +44,10 @@ export default function About() {
         />
       </div>
 
-      {/* Location & Hours */}
       <hr className={styles.hrSpacing} />
-      <div className={styles.contactInfo}>
+
+      {/* Location & Hours */}
+      <div className={styles.scheduleInfo}>
         <section>
           <h2>Location</h2>
           <p>
@@ -63,8 +64,9 @@ export default function About() {
         </section>
       </div>
 
-      {/* List of Barbers */}
       <hr className={styles.hrSpacing} />
+
+      {/* List of Barbers */}
       <h1 className={styles.barbersHeader}>Meet our Barbers</h1>
       <div className={styles.aboutBarbers}>
         {barbers.map((b) => (
