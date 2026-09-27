@@ -16,7 +16,7 @@ export default function About() {
       <Navbar />
 
       <div className={styles.hero}>
-        <h1>About Us</h1>
+        <h1>ABOUT US</h1>
       </div>
 
       {/* Barbershop Description */}
@@ -55,8 +55,8 @@ export default function About() {
 
       {/* List of Barbers */}
       <hr className={styles.hrSpacing} />
+      <h1 className={styles.barbersHeader}>Meet our Barbers:</h1>
       <div className={styles.aboutBarbers}>
-        <h1>Meet our Barbers:</h1>
         {barbers.map((b) => (
           <BarberCard key={b.name} barber={b} />
         ))}
