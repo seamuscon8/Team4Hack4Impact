@@ -1,6 +1,6 @@
 .aboutContent {
   display: flex;
-  gap: 50px;
+  gap: 80px;
   padding: 40px 10%;
 
   align-items: center;
@@ -21,8 +21,15 @@
   color: rgb(86, 85, 83);
 }
 
-.aboutImage {
+.aboutText {
   flex: 1;
+  max-width: 450px;
+}
+
+.aboutImage {
+  flex: 1.5;
+  width: 100%;
+  height: auto;
   border-radius: 12px;
   object-fit: cover;
 }
@@ -70,6 +77,9 @@
   font-weight: 600;
   text-align: center;
   letter-spacing: 3px;
+
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
 }
 
 .hrSpacing {
@@ -92,8 +102,10 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  font-size: 30px;
 
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 30px;
   color: white;
 }
 
