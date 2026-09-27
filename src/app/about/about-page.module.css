@@ -1,7 +1,19 @@
+.heading {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+}
+
+.paragraph {
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+  font-size: 1rem;
+}
+
 .hrSpacing {
-  margin: auto;
-  margin-top: 50px;
-  width: 50%;
+  width: 60%;
+  margin: 60px auto;
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .centerText {
