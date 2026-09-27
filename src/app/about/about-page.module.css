@@ -4,6 +4,10 @@
   width: 50%;
 }
 
+.centerText {
+  text-align: center;
+}
+
 .aboutContent {
   display: flex;
   gap: 50px;
