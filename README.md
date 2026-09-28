@@ -22,10 +22,9 @@ To make it easier for customers to book appointments at the haircut place, and a
 The {non-profit name} team consists of {#} Cal Poly students. Over the course of about 4 weeks, we worked as a team to deploy this web application. The team members are listed below:
 
 - [Seamus Connolly](https://www.linkedin.com/) - Tech Lead
-- [Abhay Sanilnath](https://www.linkedin.com/) - Software Developer
-- [First Last](https://www.linkedin.com/) - Software Developer
-- [First Last](https://www.linkedin.com/) - Software Developer
+- [Angele Catalig](https://www.linkedin.com/) - Software Developer
 - [Miles Schulist](https://www.linkedin.com/in/miles-schulist/) - Software Developer
+- [Abhay Sanilnath](https://www.linkedin.com/) - Software Developer
 
 ## Getting Started And Contributing
 
