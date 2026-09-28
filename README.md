@@ -23,8 +23,8 @@ The {non-profit name} team consists of {#} Cal Poly students. Over the course of
 
 - [Seamus Connolly](https://www.linkedin.com/) - Tech Lead
 - [Angele Catalig](https://www.linkedin.com/) - Software Developer
-- [First Last](https://www.linkedin.com/) - Software Developer
-- [First Last](https://www.linkedin.com/) - Software Developer
+- [Miles Schulist](https://www.linkedin.com/in/miles-schulist/) - Software Developer
+- [Abhay Sanilnath](https://www.linkedin.com/) - Software Developer
 
 ## Getting Started And Contributing
 
