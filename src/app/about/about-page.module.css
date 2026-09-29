@@ -1,0 +1,132 @@
+/* Hero */
+
+.hero {
+  background-image: url("/images/haircut-stock.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  justify-content: center;
+  margin-bottom: 60px;
+  padding: 80px 20%;
+  position: relative;
+
+  color: white;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  font-size: 30px;
+  text-align: center;
+}
+
+.hero::before {
+  /* White overlay */
+  background: rgba(255, 255, 255, 0.7);
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+.hero > * {
+  /* Places "About Us" above white overlay */
+  color: black;
+  position: relative;
+  z-index: 1;
+}
+
+/* ######### "About" Portion */
+
+.aboutContent {
+  /* Formats spacing of text & image */
+  align-items: center;
+  display: flex;
+  gap: 80px;
+  padding: 40px 10%;
+}
+
+.aboutContent h2 {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.aboutContent p {
+  flex: 1;
+
+  color: rgb(86, 85, 83);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.aboutText {
+  flex: 1;
+  max-width: 450px;
+}
+
+.aboutImage {
+  border-radius: 12px;
+  flex: 1.5;
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+
+/* ######### Hours & Location */
+
+.scheduleInfo {
+  display: grid;
+  gap: 40px;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 40px 10%;
+
+  text-align: center;
+}
+
+.scheduleInfo h2 {
+  color: rgb(174, 154, 79);
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.scheduleInfo p {
+  flex: 1;
+
+  color: rgb(86, 85, 83);
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+/* ######### Barber Portion */
+
+.aboutBarbers {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  padding: 40px 10%;
+}
+
+.barbersHeader {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/* Consistent hr properties */
+
+.hrSpacing {
+  border: none;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 60px auto;
+}
