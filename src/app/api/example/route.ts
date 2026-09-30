@@ -1,5 +1,6 @@
 import connectDB from "@/database/db";
 import { NextResponse } from "next/server";
+import { HaircutAppointment } from "@/data/haircutData";
 
 /**
  * Example GET API route
