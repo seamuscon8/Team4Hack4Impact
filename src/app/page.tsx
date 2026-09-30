@@ -4,7 +4,9 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <h1>Home</h1>
+      <a href="/book_now/" className="button-link">
+        BOOK NOW
+      </a>
     </main>
   );
 }
