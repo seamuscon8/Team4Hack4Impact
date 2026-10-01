@@ -1,2 +1,2 @@
-import type { HaircutAppointment } from "@/data/haircutData";
+import type { HaircutAppointment } from "@/data/haircutappointment";
 // for future use

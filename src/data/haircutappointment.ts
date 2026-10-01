@@ -1,5 +1,5 @@
 export interface HaircutAppointment {
-  appointmentnumber: number;
+  appointmentNumber: number;
   customerName: string;
   customerEmail: string;
   customerPhone: string;
@@ -11,28 +11,9 @@ export interface HaircutAppointment {
   price: number;
 }
 
-export interface Barber {
-  id: number;
-  name: string;
-  bio: string;
-  imageUrl: string;
-  services: string[];
-  workingHours: string;
-}
-
-export const mockBarber: Barber[] = [
-  {
-    id: 101,
-    name: "Kevin Lee",
-    bio: "Fades are my highest priority!",
-    imageUrl: "/images/barbers/kevin-lee.jpg",
-    services: ["High Taper Fade", "Low Taper Fade", "Mid Fade"],
-    workingHours: "Mon-Sat, 9:00 AM-6:30 PM",
-  },
-];
 export const mockAppointments: HaircutAppointment[] = [
   {
-    appointmentnumber: 1,
+    appointmentNumber: 1,
     customerName: "Joe Smith",
     customerEmail: "joe@example.com",
     customerPhone: "8051281917",

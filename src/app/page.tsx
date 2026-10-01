@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
-import type { HaircutAppointment } from "@/data/haircutData";
-import { mockAppointments } from "@/data/haircutData";
-import { mockBarber } from "@/data/haircutData";
+import { mockAppointments } from "@/data/haircutappointment";
+import { mockBarber } from "@/data/barber";
 export default function Home() {
   return (
     <main>
