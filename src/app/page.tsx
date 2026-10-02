@@ -8,7 +8,7 @@ export default function Home() {
       <h1>Home</h1>
       <h2>Appointments</h2>
       {mockAppointments.map((appointment) => (
-        <article key={appointment.appointmentnumber}>
+        <article key={appointment.appointmentNumber}>
           <h3>{appointment.customerName}</h3>
           <p>Service: {appointment.service}</p>
           <p>Barber: {appointment.barberName}</p>
