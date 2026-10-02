@@ -36,7 +36,7 @@ export function BeforeAfterGallery({ beforeAfter }: BeforeAfterProps) {
           className={styles.image}
         />
       </div>
-      <h2>{beforeAfter.name}</h2>
+      <h2 className={styles.label}>{beforeAfter.name}</h2>
     </div>
   );
 }
