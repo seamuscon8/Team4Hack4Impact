@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./global.css";
+import "./globals.css";
 
 //! Update metadata to match your project
 export const metadata: Metadata = {
