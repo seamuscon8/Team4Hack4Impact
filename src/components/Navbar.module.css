@@ -1,0 +1,32 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+  background: white;
+}
+
+.logo {
+  color: black;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.links a {
+  color: black;
+  text-decoration: none;
+}
+
+.bookNow {
+  padding: 10px 16px;
+  border-radius: 5px;
+  background: #007bff;
+  color: white !important;
+}
