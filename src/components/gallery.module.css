@@ -7,6 +7,7 @@
 
 .imageContainer {
   display: flex;
+  position: relative;
 }
 
 .imageContainer img {
@@ -26,4 +27,32 @@
   font-weight: 500;
   width: 723px;
   display: block;
+}
+
+.overlay {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 722px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  text-align: center;
+  padding: 8px 14px;
+  background: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.beforeText {
+  color: #000;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.afterText {
+  color: rgb(174, 154, 79);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
 }

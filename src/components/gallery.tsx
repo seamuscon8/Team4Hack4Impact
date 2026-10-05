@@ -21,6 +21,11 @@ export function BeforeAfterGallery({ beforeAfter }: BeforeAfterProps) {
   return (
     <div className={styles.galleryCard}>
       <div className={styles.imageContainer}>
+        <div className={styles.overlay}>
+          <span className={styles.beforeText}>BEFORE</span>
+          <span className={styles.afterText}>AFTER</span>
+        </div>
+
         <Image
           src={beforeAfter.before}
           alt={`${beforeAfter.name} - Before`}
@@ -36,6 +41,7 @@ export function BeforeAfterGallery({ beforeAfter }: BeforeAfterProps) {
           className={styles.image}
         />
       </div>
+
       <h2 className={styles.label}>{beforeAfter.name}</h2>
     </div>
   );
