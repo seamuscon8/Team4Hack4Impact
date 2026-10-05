@@ -1,0 +1,14 @@
+.pageTitle {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.pageSubtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  margin-top: 3rem;
+  text-align: center;
+  color: rgb(174, 154, 79);
+}
