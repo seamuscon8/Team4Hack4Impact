@@ -1,4 +1,4 @@
-import styles from "./gallery.module.css";
+import styles from "styles/gallery.module.css";
 import Image from "next/image";
 
 // Before and After
