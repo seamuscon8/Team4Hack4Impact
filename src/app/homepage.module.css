@@ -77,22 +77,24 @@
   z-index: 1;
 }
 
-.dropdownContent a {
-  display: block;
-  padding: 12px 16px;
+.dropdownContent button {
+  width: 100%;
+  border: none;
+  background: transparent;
   color: black;
-  text-decoration: none;
+  padding: 12px 16px;
+  cursor: pointer;
   text-align: left;
+  font-size: 16px;
 }
 
-.dropdownContent a:hover {
+.dropdownContent button:hover {
   background-color: #ddd;
-}
-
-.dropdown:hover .dropdownContent {
-  display: block;
 }
 
 .dropdown:hover .dropbtn {
   background-color: #2980b9;
+}
+.show {
+  display: block;
 }
