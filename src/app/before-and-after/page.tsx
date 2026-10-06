@@ -4,9 +4,9 @@ import Image from "next/image";
 import { createBeforeAfter, BeforeAfterGallery } from "@/components/gallery";
 
 const beforeAfter = [
-  createBeforeAfter("/images/haircut-stock.jpg", "/images/haircut-stock.jpg", "Haircut Transformation"),
-  createBeforeAfter("/images/haircut-stock.jpg", "/images/haircut-stock.jpg", "Haircut Transformation"),
-  createBeforeAfter("/images/haircut-stock.jpg", "/images/haircut-stock.jpg", "Haircut Transformation"),
+  createBeforeAfter("/images/ba-1-before.jpg", "/images/ba-1-after.jpg", "Haircut Transformation"),
+  createBeforeAfter("/images/ba-2-before.jpg", "/images/ba-2-after.jpg", "Haircut Transformation"),
+  createBeforeAfter("/images/ba-3-before.jpg", "/images/ba-3-after.jpg", "Haircut Transformation"),
 ];
 
 export default function BeforeAndAfter() {
