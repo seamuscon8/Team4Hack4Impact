@@ -1,48 +1,56 @@
 .galleryCard {
+  width: fit-content; /* prevents leaking */
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   margin-bottom: 20px;
+  margin: 0 auto; /* centers the card horizontally */
 }
 
 .imageContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   position: relative;
+  justify-content: center;
+  align-items: center;
+  width: fit-content; /* ensures overlay matches image width */
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .imageContainer img {
-  width: 100%;
+  width: 100%; /* match your Next/Image width */
   height: 250px;
   object-fit: cover;
-  max-width: 400px;
-  margin-bottom: -10px;
+  display: block;
 }
 
 .label {
-  margin-top: 10px;
-  background: rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 0px;
+  background: rgba(0, 0, 0, 0.1);
   color: black;
   padding: 10px 14px;
   font-size: 1rem;
-  font-weight: 500;
-  width: 723px;
-  display: block;
+  font-weight: 600;
+  width: 100%;
+  max-width: 721px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .overlay {
   position: absolute;
-  bottom: -10px;
+  bottom: 0;
   left: 0;
-  width: 722px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  width: 100%; /* spans across both images */
+  display: grid; /* turns it into a grid */
+  grid-template-columns: 1fr 1fr; /* two equal columns */
   text-align: center;
   padding: 8px 14px;
   background: rgba(255, 255, 255, 0.9);
   font-size: 1rem;
-  font-family: "Inter", sans-serif;
   font-weight: 600;
-  z-index: 2;
 }
 
 .beforeText {
