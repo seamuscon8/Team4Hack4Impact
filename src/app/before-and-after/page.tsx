@@ -4,9 +4,10 @@ import Image from "next/image";
 import { createBeforeAfter, BeforeAfterGallery } from "@/components/gallery";
 
 const beforeAfter = [
-  createBeforeAfter("/images/ba-1-before.jpg", "/images/ba-1-after.jpg", "Haircut Transformation"),
-  createBeforeAfter("/images/ba-2-before.jpg", "/images/ba-2-after.jpg", "Haircut Transformation"),
-  createBeforeAfter("/images/ba-3-before.jpg", "/images/ba-3-after.jpg", "Haircut Transformation"),
+  createBeforeAfter("/images/ba-1-before.jpg", "/images/ba-1-after.jpg", "Awesome Haircut 1"),
+  createBeforeAfter("/images/ba-2-before.jpg", "/images/ba-2-after.jpg", "Awesome Haircut 2"),
+  createBeforeAfter("/images/ba-3-before.jpg", "/images/ba-3-after.jpg", "Awesome Haircut 3"),
+  createBeforeAfter("/images/ba-4-before.jpg", "/images/ba-4-after.jpg", "Awesome Haircut 4"),
 ];
 
 export default function BeforeAndAfter() {
