@@ -1,33 +1,63 @@
+"use client";
+
+import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { mockAppointments } from "@/data/haircutappointment";
 import { mockBarber } from "@/data/barber";
+import Image from "next/image";
+import styles from "./homepage.module.css";
 export default function Home() {
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState("Choose a haircut");
+
+  function chooseStyle(style: string) {
+    setSelectedStyle(style);
+    setDropdownOpen(false);
+  }
+
   return (
     <main>
       <Navbar />
-      <h1>Home</h1>
-      <h2>Appointments</h2>
-      {mockAppointments.map((appointment) => (
-        <article key={appointment.appointmentNumber}>
-          <h3>{appointment.customerName}</h3>
-          <p>Service: {appointment.service}</p>
-          <p>Barber: {appointment.barberName}</p>
-          <p>Date: {appointment.appointmentDate.toLocaleDateString()}</p>
-          <p>Time: {appointment.appointmentTime}</p>
-          <p>Status: {appointment.status}</p>
-          <p>Price: ${appointment.price}</p>
-        </article>
-      ))}
-      <h2>Barbers</h2>
-      {mockBarber.map((barber) => (
-        <article key={barber.id}>
-          <h3>{barber.name}</h3>
-          <p>Biography: {barber.bio}</p>
-          <p>Image: {barber.imageUrl}</p>
-          <p>Services: {barber.services.join(", ")}</p>
-          <p>Working Hours: {barber.workingHours}</p>
-        </article>
-      ))}
+
+      <div className={styles.content}>
+        <h1>COOL CUTS</h1>
+
+        <p className={styles.description}>Welcome to the tuffest cuts on earth!</p>
+
+        <div className={styles.images}>
+          <Image src="/images/haircut1.jpg" alt="Before and after" width={500} height={350} className={styles.image} />
+          <Image
+            src="/images/haircut3.jpeg"
+            alt="Another before and after"
+            width={500}
+            height={350}
+            className={styles.image}
+          />
+          <Image src="/images/haircut-stock.jpg" alt="Stock image" width={500} height={350} className={styles.image} />
+        </div>
+
+        <div className={styles.dropdown}>
+          <button type="button" className={styles.dropbtn} onClick={() => setDropdownOpen(!dropdownOpen)}>
+            {selectedStyle}
+          </button>
+
+          <div className={`${styles.dropdownContent} ${dropdownOpen ? styles.show : ""}`}>
+            <button type="button" onClick={() => chooseStyle("Buzz Cut")}>
+              Buzz Cut
+            </button>
+            <button type="button" onClick={() => chooseStyle("Dreads")}>
+              Dreads
+            </button>
+            <button type="button" onClick={() => chooseStyle("GTA Cut")}>
+              GTA Cut
+            </button>
+          </div>
+        </div>
+
+        <a href="/book_now" className={styles["button-link"]}>
+          BOOK NOW
+        </a>
+      </div>
     </main>
   );
 }
