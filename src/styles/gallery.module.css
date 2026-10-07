@@ -9,18 +9,15 @@
 }
 
 .imageContainer {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  width: 100%;
+  max-width: 700px; /* optional */
   position: relative;
-  justify-content: center;
-  align-items: center;
-  width: fit-content; /* ensures overlay matches image width */
-  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .imageContainer img {
-  width: 100%; /* match your Next/Image width */
-  height: 250px;
+  width: 60%;
+  aspect-ratio: 4 / 3;
   object-fit: cover;
   display: block;
 }
@@ -36,7 +33,7 @@
   font-size: 1rem;
   font-weight: 600;
   width: 100%;
-  max-width: 721px;
+  max-width: 637px;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
