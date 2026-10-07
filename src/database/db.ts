@@ -23,7 +23,7 @@ const connectDB = async (): Promise<typeof mongoose> => {
 
   if (!cached.promise) {
     cached.promise = mongoose.connect(MONGO_URI, {
-      bufferCommands = false,
+      bufferCommands: false,
     });
   }
 
