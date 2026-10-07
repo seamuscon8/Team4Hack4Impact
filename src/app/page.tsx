@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
-import styles from "./homepage.module.css";
-import Image from "next/image";
-
+import { mockAppointments } from "@/data/haircutappointment";
+import { mockBarber } from "@/data/barber";
 export default function Home() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState("Choose a haircut");
