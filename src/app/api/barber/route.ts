@@ -24,3 +24,5 @@ export async function POST(request: Request) {
   };
   return NextResponse.json(newBarber, { status: 201 });
 }
+
+// test test
