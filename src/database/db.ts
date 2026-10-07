@@ -10,7 +10,7 @@ let connection: typeof mongoose;
  */
 const connectDB = async () => {
   if (!connection) {
-    connection = await mongoose.connect(url); // remove me
+    connection = await mongoose.connect(url);
     return connection;
   }
 };
