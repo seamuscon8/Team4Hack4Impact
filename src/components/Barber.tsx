@@ -1,4 +1,4 @@
-import styles from "./barber.module.css";
+import styles from "styles/barber.module.css";
 import Image from "next/image";
 
 export type Barber = {

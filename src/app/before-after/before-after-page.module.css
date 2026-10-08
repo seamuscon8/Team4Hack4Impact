@@ -1,0 +1,16 @@
+.pageTitle {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.pageSubtitle {
+  color: rgb(174, 154, 79);
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  margin-bottom: -1rem;
+  margin-top: 3rem;
+  text-align: center;
+  text-transform: uppercase;
+}

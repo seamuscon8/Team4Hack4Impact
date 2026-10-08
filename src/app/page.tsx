@@ -54,7 +54,7 @@ export default function Home() {
           </div>
         </div>
 
-        <a href="/book_now" className={styles["button-link"]}>
+        <a href="/book-now" className={styles["button-link"]}>
           BOOK NOW
         </a>
       </div>
