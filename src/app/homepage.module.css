@@ -1,154 +1,100 @@
-.page {
+.main {
   min-height: 100vh;
-  background: white;
-  color: black;
-}
-.container {
-  width: min(100% - 48px, 1160px);
-  margin: 0 auto;
-}
-.hero {
-  display: grid;
-  grid-template-columns: 0.9fr 1fr;
-  gap: clamp(42px, 8vw, 115px);
-  align-items: center;
-  min-height: 630px;
-  padding: 54px 0 76px;
-}
-.eyebrow {
-  margin: 0 0 24px;
-  color: #555;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-.heroText h1 {
-  margin: 0;
-  font-size: clamp(56px, 7vw, 92px);
-  font-weight: 600;
-  letter-spacing: -0.07em;
-  line-height: 0.95;
-}
-.description {
-  max-width: 360px;
-  margin: 30px 0;
-  color: #555;
-  font-size: 18px;
-  line-height: 1.55;
-}
-.heroLinks {
   display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.primaryLink {
-  display: inline-flex;
-  gap: 22px;
-  padding: 14px 17px;
-  background: #007bff;
-  color: #fff;
-  font-size: 14px;
-  text-decoration: none;
-}
-.secondaryLink,
-.sectionHeading a {
-  color: #444;
-  font-size: 14px;
-  text-decoration: none;
-}
-.primaryLink:hover,
-.secondaryLink:hover,
-.sectionHeading a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
+  flex-direction: column;
+  align-items: center; /* centers left-to-right */
+  justify-content: center; /* centers top-to-bottom */
 }
 
-.primaryLink:hover {
-  background: #0056b3;
-}
-.note {
-  margin: 26px 0 0;
-  color: #555;
-  font-size: 12px;
-}
-.heroImage {
-  margin: 0;
-}
-.image {
-  display: block;
-  width: 100%;
-  height: min(56vw, 590px);
-  object-fit: cover;
-}
-.heroImage figcaption {
-  margin-top: 8px;
-  color: #555;
-  font-size: 11px;
-  text-align: right;
-}
-.workSection {
-  border-top: 1px solid #ddd;
-  padding: 72px 0 100px;
-}
-.sectionHeading {
+.content {
+  min-height: calc(100vh - 70px);
   display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 28px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
 }
-.sectionHeading .eyebrow {
-  margin-bottom: 14px;
+
+.button-link {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none; /* Removes the underline */
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
 }
-.sectionHeading h2 {
-  margin: 0;
-  font-size: clamp(34px, 4vw, 54px);
-  font-weight: 600;
-  letter-spacing: -0.05em;
+
+.button-link:hover {
+  background-color: #0056b3; /* Darkens on hover */
 }
-.workGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-.workCard h3 {
-  margin: 13px 0 4px;
-  font-size: 17px;
-  font-weight: 600;
-}
-.workCard p {
-  margin: 0;
+
+.description {
+  max-width: 550px;
+  margin: 12px 0 24px;
+  line-height: 1.6;
   color: #555;
-  font-size: 13px;
 }
-.workImage {
-  display: block;
-  width: 100%;
-  height: 340px;
+.images {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 12px 0 28px;
+}
+
+.image {
+  width: min(100%, 400px);
+  height: 275px;
   object-fit: cover;
+  border-radius: 10px;
 }
-@media (max-width: 720px) {
-  .container {
-    width: min(100% - 32px, 1160px);
-  }
-  .hero {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    min-height: auto;
-    padding: 42px 0 60px;
-  }
-  .image {
-    height: 440px;
-  }
-  .sectionHeading {
-    align-items: start;
-    flex-direction: column;
-  }
-  .workGrid {
-    grid-template-columns: 1fr;
-  }
-  .workImage {
-    height: 370px;
-  }
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin-top: 20px;
+}
+
+.dropbtn {
+  background-color: #3498db;
+  color: white;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dropdownContent {
+  display: none;
+  position: absolute;
+  left: 0;
+  min-width: 160px;
+  background-color: #f1f1f1;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdownContent button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: black;
+  padding: 12px 16px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+}
+
+.dropdownContent button:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #2980b9;
+}
+.show {
+  display: block;
 }
