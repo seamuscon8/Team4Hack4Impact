@@ -32,10 +32,8 @@ const barberSchema = new Schema({
   },
   workingHours: {
     type: Map,
-    of: {
-      type: String,
-      enum: ["open", "closed", "by appointment"],
-    },
+    of: String,
+    required: true,
   },
 });
 
