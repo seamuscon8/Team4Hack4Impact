@@ -2,21 +2,7 @@ import Navbar from "@/components/Navbar";
 import styles from "./about-page.module.css";
 import Image from "next/image";
 import { BarberCard, createBarber } from "@/components/Barber";
-
-// Creating mock barber profiles
-const barbers = [
-  createBarber("Seamus", 5.0, "bluh bluh bluh bluh bluh", "/images/haircut-stock.jpg"),
-
-  createBarber("Abhay", 5.0, "bluh bluh bluh bluh", "/images/haircut-stock.jpg"),
-
-  createBarber("Arnav", 5.0, "bluh bluh bluh", "/images/haircut-stock.jpg"),
-
-  createBarber("Christian", 5.0, "bluh bluh bluh bluh ", "/images/haircut-stock.jpg"),
-
-  createBarber("Miles", 5.0, "bluh bluh bluh bluh bluh", "/images/haircut-stock.jpg"),
-
-  createBarber("Angele", 5.0, "bluh bluh bluh", "/images/haircut-stock.jpg"),
-];
+import { mockBarber } from "@/data/barber";
 
 export default function About() {
   return (
@@ -27,15 +13,12 @@ export default function About() {
         <h1>ABOUT US</h1>
       </div>
 
-      {/* Barbershop Description */}
       <div className={styles.aboutContent}>
         <section className={styles.aboutText}>
           <h2>We. Love. Cutting. Hair.</h2>
-          <p>
-            Insert stuff about our awesome barbershop! The freshest cuts, the sweetest styles. Bluh bluh bluh bluh bluh
-            bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh bluh.
-          </p>
+          <p>Insert stuff about our awesome barbershop! The freshest cuts, the sweetest styles.</p>
         </section>
+
         <Image
           src="/images/haircut-stock.jpg"
           alt="Barber cutting hair"
@@ -47,7 +30,6 @@ export default function About() {
 
       <hr className={styles.hrSpacing} />
 
-      {/* Location & Hours */}
       <div className={styles.scheduleInfo}>
         <section>
           <h2>Location</h2>
@@ -56,22 +38,24 @@ export default function About() {
             City, State, 99999
           </p>
         </section>
+
         <section>
           <h2>Hours</h2>
           <p>
             Mon-Fri: 9 AM – 7 PM <br />
-            Saturday: 8 AM – 6 PM <br />* Sunday: Closed
+            Saturday: 8 AM – 6 PM <br />
+            Sunday: Closed
           </p>
         </section>
       </div>
 
       <hr className={styles.hrSpacing} />
 
-      {/* List of Barbers */}
       <h1 className={styles.barbersHeader}>Meet our Barbers</h1>
+
       <div className={styles.aboutBarbers}>
-        {barbers.map((b) => (
-          <BarberCard key={b.name} barber={b} />
+        {mockBarber.map((barber) => (
+          <BarberCard key={barber.id} barber={createBarber(barber.name, 5.0, barber.bio, barber.imageUrl)} />
         ))}
       </div>
     </main>
