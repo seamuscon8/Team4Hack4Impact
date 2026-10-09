@@ -1,5 +1,5 @@
 import mongoose, { Schema, models, model, Model } from "mongoose";
-
+// yay
 interface Barber {
   id: number;
   name: string;
