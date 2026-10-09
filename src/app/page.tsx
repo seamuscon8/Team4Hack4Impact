@@ -4,59 +4,88 @@ import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import { mockAppointments } from "@/data/haircutappointment";
 import { mockBarber } from "@/data/barber";
+import Link from "next/link";
 import Image from "next/image";
 import styles from "./homepage.module.css";
+
+const haircutStyles = [
+  {
+    title: "Clean fade",
+    description: "A fresh taper with a clean finish.",
+    image: "/images/before-after/ba-1-after.jpg",
+  },
+  {
+    title: "Natural texture",
+    description: "Shape and definition without losing texture.",
+    image: "/images/before-after/ba-2-after.jpg",
+  },
+  {
+    title: "Classic cut",
+    description: "A closer look at the finished cut.",
+    image: "/images/before-after/ba-3-after.jpg",
+  },
+];
+
 export default function Home() {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedStyle, setSelectedStyle] = useState("Choose a haircut");
-
-  function chooseStyle(style: string) {
-    setSelectedStyle(style);
-    setDropdownOpen(false);
-  }
-
   return (
-    <main>
+    <main className={styles.page}>
       <Navbar />
 
-      <div className={styles.content}>
-        <h1>COOL CUTS</h1>
+      <div className={styles.container}>
+        <section className={styles.hero}>
+          <div className={styles.heroText}>
+            <p className={styles.eyebrow}>Haircut Place / San Luis Obispo</p>
+            <h1>
+              Good hair.
+              <br />
+              No fuss.
+            </h1>
+            <p className={styles.description}>Clean fades, natural texture, and a cut that feels like you.</p>
 
-        <p className={styles.description}>Welcome to the tuffest cuts on earth!</p>
+            <div className={styles.heroLinks}>
+              <Link className={styles.primaryLink} href="/book-now">
+                Book now <span>↗</span>
+              </Link>
+              <Link className={styles.secondaryLink} href="/about">
+                About Us <span>↗</span>
+              </Link>
+            </div>
 
-        <div className={styles.images}>
-          <Image src="/images/haircut1.jpg" alt="Before and after" width={500} height={350} className={styles.image} />
-          <Image
-            src="/images/haircut3.jpeg"
-            alt="Another before and after"
-            width={500}
-            height={350}
-            className={styles.image}
-          />
-          <Image src="/images/haircut-stock.jpg" alt="Stock image" width={500} height={350} className={styles.image} />
-        </div>
-
-        <div className={styles.dropdown}>
-          <button type="button" className={styles.dropbtn} onClick={() => setDropdownOpen(!dropdownOpen)}>
-            {selectedStyle}
-          </button>
-
-          <div className={`${styles.dropdownContent} ${dropdownOpen ? styles.show : ""}`}>
-            <button type="button" onClick={() => chooseStyle("Buzz Cut")}>
-              Buzz Cut
-            </button>
-            <button type="button" onClick={() => chooseStyle("Dreads")}>
-              Dreads
-            </button>
-            <button type="button" onClick={() => chooseStyle("GTA Cut")}>
-              GTA Cut
-            </button>
+            <p className={styles.note}>Haircuts made for your everyday.</p>
           </div>
-        </div>
 
-        <a href="/book-now" className={styles["button-link"]}>
-          BOOK NOW
-        </a>
+          <figure className={styles.heroImage}>
+            <Image
+              alt="A fresh haircut at Haircut Place"
+              className={styles.image}
+              height={680}
+              priority
+              src="/images/barber1.jpg"
+              width={570}
+            />
+            <figcaption>Haircut Place, at work — in the chair.</figcaption>
+          </figure>
+        </section>
+
+        <section className={styles.workSection}>
+          <div className={styles.sectionHeading}>
+            <div>
+              <p className={styles.eyebrow}>Selected work</p>
+              <h2>Real cuts. A closer look.</h2>
+            </div>
+            <Link href="/before-after">Before &amp; after ↗</Link>
+          </div>
+
+          <div className={styles.workGrid}>
+            {haircutStyles.map((haircut) => (
+              <article className={styles.workCard} key={haircut.title}>
+                <Image alt={haircut.title} className={styles.workImage} height={420} src={haircut.image} width={380} />
+                <h3>{haircut.title}</h3>
+                <p>{haircut.description}</p>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );
