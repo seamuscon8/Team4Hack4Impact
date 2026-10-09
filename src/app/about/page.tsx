@@ -5,45 +5,59 @@ import { BarberCard, createBarber } from "@/components/Barber";
 
 // Creating mock barber profiles
 const barbers = [
-  createBarber(
-    1,
-    "Seamus",
-    "bluh bluh bluh bluh bluh",
-    "/images/haircut-stock.jpg",
-    ["Haircut", "Beard Trim"],
-    "9 AM – 7 PM",
-  ),
+  createBarber(1, "Seamus", "bluh bluh bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], {
+    Mon: "3 PM - 5 PM",
+    Tue: "3 PM - 5 PM",
+    Wed: "3 PM - 5 PM",
+    Thu: "3 PM - 5 PM",
+    Fri: "3 PM - 5 PM",
+    Sat: "3 PM - 5 PM",
+  }),
 
-  createBarber(
-    2,
-    "Abhay",
-    "bluh bluh bluh bluh",
-    "/images/haircut-stock.jpg",
-    ["Haircut", "Beard Trim"],
-    "9 AM – 7 PM",
-  ),
+  createBarber(2, "Abhay", "bluh bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], {
+    Mon: "3 PM - 5 PM",
+    Tue: "3 PM - 5 PM",
+    Wed: "3 PM - 5 PM",
+    Thu: "3 PM - 5 PM",
+    Fri: "3 PM - 5 PM",
+    Sat: "3 PM - 5 PM",
+  }),
 
-  createBarber(3, "Arnav", "bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], "9 AM – 7 PM"),
+  createBarber(3, "Arnav", "bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], {
+    Mon: "3 PM - 5 PM",
+    Tue: "3 PM - 5 PM",
+    Wed: "3 PM - 5 PM",
+    Thu: "3 PM - 5 PM",
+    Fri: "3 PM - 5 PM",
+    Sat: "3 PM - 5 PM",
+  }),
 
-  createBarber(
-    4,
-    "Christian",
-    "bluh bluh bluh bluh ",
-    "/images/haircut-stock.jpg",
-    ["Haircut", "Beard Trim"],
-    "9 AM – 7 PM",
-  ),
+  createBarber(4, "Christian", "bluh bluh bluh bluh ", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], {
+    Mon: "3 PM - 5 PM",
+    Tue: "3 PM - 5 PM",
+    Wed: "3 PM - 5 PM",
+    Thu: "3 PM - 5 PM",
+    Fri: "3 PM - 5 PM",
+    Sat: "3 PM - 5 PM",
+  }),
 
-  createBarber(
-    5,
-    "Miles",
-    "bluh bluh bluh bluh bluh",
-    "/images/haircut-stock.jpg",
-    ["Haircut", "Beard Trim"],
-    "9 AM – 7 PM",
-  ),
+  createBarber(5, "Miles", "bluh bluh bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], {
+    Mon: "3 PM - 5 PM",
+    Tue: "3 PM - 5 PM",
+    Wed: "3 PM - 5 PM",
+    Thu: "3 PM - 5 PM",
+    Fri: "3 PM - 5 PM",
+    Sat: "3 PM - 5 PM",
+  }),
 
-  createBarber(6, "Angele", "bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], "9 AM – 7 PM"),
+  createBarber(6, "Angele", "bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], {
+    Mon: "3 PM - 5 PM",
+    Tue: "3 PM - 5 PM",
+    Wed: "3 PM - 5 PM",
+    Thu: "3 PM - 5 PM",
+    Fri: "3 PM - 5 PM",
+    Sat: "3 PM - 5 PM",
+  }),
 ];
 
 export default function About() {

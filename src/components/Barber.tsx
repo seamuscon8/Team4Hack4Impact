@@ -7,7 +7,7 @@ export type Barber = {
   bio: string;
   imageUrl: string;
   services: string[];
-  workingHours: string;
+  workingHours: Record<string, string>;
 };
 
 export function createBarber(
@@ -16,7 +16,7 @@ export function createBarber(
   bio: string,
   imageUrl: string,
   services: string[],
-  workingHours: string,
+  workingHours: Record<string, string>,
 ): Barber {
   return { id, name, bio, imageUrl, services, workingHours };
 }
@@ -32,10 +32,19 @@ export function BarberCard({ barber }: BarberProps) {
 
       <h2>{barber.name}</h2>
       <p className={styles.barberBio}>{barber.bio}</p>
-      <h3>Services:</h3>
-      <p>{barber.services.join(", ")}</p>
-      <h3>Working Hours:</h3>
-      <p>{barber.workingHours}</p>
+      <section style={{ textAlign: "left" }}>
+        <h3>Services:</h3>
+        <p>{barber.services.join(", ")}</p>
+        <h3>Working Hours:</h3>
+        <p>
+          {Object.entries(barber.workingHours).map(([day, time]) => (
+            <span key={day}>
+              {day}: {time}
+              <br />
+            </span>
+          ))}
+        </p>
+      </section>
     </div>
   );
 }
