@@ -1,5 +1,13 @@
 import mongoose, { Schema, models, model, Model } from "mongoose";
-import { Barber } from "@/components/Barber";
+
+interface Barber {
+  id: number;
+  name: string;
+  bio: string;
+  imageUrl: string;
+  services: string[];
+  workingHours: Record<string, string>;
+}
 
 const barberSchema = new Schema({
   id: {
