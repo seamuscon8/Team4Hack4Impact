@@ -31,11 +31,7 @@ const barberSchema = new Schema({
     required: [true, "Services are required."],
   },
   workingHours: {
-    type: Map,
-    of: {
-      type: String,
-      enum: ["open", "closed", "by appointment"],
-    },
+    type: String,
     required: [true, "Working hours are required."],
   },
 });
