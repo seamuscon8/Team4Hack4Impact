@@ -1,20 +1,39 @@
 import mongoose from "mongoose";
 
-const url: string = process.env.MONGO_URI as string;
-let connection: typeof mongoose;
+const MONGO_URI = process.env.MONGO_URI;
 
-/**
- * Makes a connection to a MongoDB database. If a connection already exists, does nothing
- * Call this function before all api routes
- * @returns {Promise<typeof mongoose>}
- */
-const connectDB = async () => {
-  if (!connection) {
-    // uncomment this line once you have the MONGO_URI set up
-    // connection = await mongoose.connect(url);
-    connection = "remove me" as any; // remove me
-    return connection;
-  }
+if (!MONGO_URI) {
+  throw new Error("Please define the MONGO_URI environment variable.");
+}
+type MongooseCache = {
+  conn: typeof mongoose | null;
+  promise: Promise<typeof mongoose> | null;
 };
 
+declare global {
+  var mongoose: MongooseCache | null;
+}
+
+const cached = global.mongoose ?? (global.mongoose = { conn: null, promise: null });
+
+const connectDB = async (): Promise<typeof mongoose> => {
+  if (cached.conn) {
+    return cached.conn;
+  }
+
+  if (!cached.promise) {
+    cached.promise = mongoose.connect(MONGO_URI, {
+      bufferCommands: false,
+    });
+  }
+
+  try {
+    cached.conn = await cached.promise;
+  } catch (error) {
+    cached.promise = null;
+    throw error;
+  }
+
+  return cached.conn;
+};
 export default connectDB;

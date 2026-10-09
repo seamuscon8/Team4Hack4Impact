@@ -1,0 +1,62 @@
+.galleryCard {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto; /* center card */
+  padding-bottom: 30px; /* add some space at the bottom of the card */
+  width: fit-content;
+}
+
+.imageContainer {
+  display: flex;
+  max-width: 700px; /* optional */
+  position: relative;
+  width: 100%;
+}
+
+.imageContainer img {
+  aspect-ratio: 4 / 3;
+  display: block;
+  object-fit: cover;
+  width: 60%;
+}
+
+.label {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: black;
+  display: grid;
+  font-size: 1rem;
+  font-weight: 600;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 20px;
+  margin-top: 0px;
+  max-width: 637px;
+  padding: 10px 14px;
+  width: 100%;
+}
+
+.overlay {
+  background: rgba(255, 255, 255, 0.9);
+  bottom: 0;
+  display: grid;
+  font-size: 1rem;
+  font-weight: 600;
+  grid-template-columns: 1fr 1fr;
+  left: 0;
+  padding: 8px 14px;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+
+.beforeText {
+  color: #000;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
+
+.afterText {
+  color: rgb(174, 154, 79);
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+}
