@@ -5,13 +5,20 @@ export type Barber = {
   id: string;
   name: string;
   bio: string;
-  services: string[];
-  workingHours: Record<string, "open" | "closed" | "by appointment">;
   imageUrl: string;
+  services: string[];
+  workingHours: string;
 };
 
-export function createBarber(name: string, rating: number, bio: string, imageURL: string): Barber {
-  return { id: "", name, bio, services: [], workingHours: {}, imageUrl: imageURL };
+export function createBarber(
+  id: string,
+  name: string,
+  bio: string,
+  imageUrl: string,
+  services: string[],
+  workingHours: string,
+): Barber {
+  return { id, name, bio, imageUrl, services, workingHours };
 }
 
 type BarberProps = {
@@ -24,14 +31,7 @@ export function BarberCard({ barber }: BarberProps) {
       <Image src={barber.imageUrl} alt={barber.name} width={290} height={250} className={styles.barberImage} />
 
       <h2>{barber.name}</h2>
-      <p>
-        Services: {barber.services.join(", ")} <br />
-        Working Hours:{" "}
-        {Object.entries(barber.workingHours)
-          .map(([day, status]) => `${day}: ${status}`)
-          .join(", ")}
-        <br />
-      </p>
+
       <p className={styles.barberBio}>{barber.bio}</p>
     </div>
   );
