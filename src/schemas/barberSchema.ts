@@ -3,7 +3,7 @@ import { Barber } from "@/components/Barber";
 
 const barberSchema = new Schema({
   id: {
-    type: String,
+    type: Number,
     required: [true, "ID is required."],
     unique: true,
   },
