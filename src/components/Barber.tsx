@@ -2,14 +2,16 @@ import styles from "styles/barber.module.css";
 import Image from "next/image";
 
 export type Barber = {
+  id: string;
   name: string;
-  rating: number;
   bio: string;
-  image: string;
+  services: string[];
+  workingHours: Record<string, "open" | "closed" | "by appointment">;
+  imageUrl: string;
 };
 
-export function createBarber(name: string, rating: number, bio: string, image: string): Barber {
-  return { name, rating, bio, image };
+export function createBarber(name: string, rating: number, bio: string, imageURL: string): Barber {
+  return { id: "", name, bio, services: [], workingHours: {}, imageUrl: imageURL };
 }
 
 type BarberProps = {
@@ -19,11 +21,15 @@ type BarberProps = {
 export function BarberCard({ barber }: BarberProps) {
   return (
     <div className={styles.card}>
-      <Image src={barber.image} alt={barber.name} width={290} height={250} className={styles.barberImage} />
+      <Image src={barber.imageUrl} alt={barber.name} width={290} height={250} className={styles.barberImage} />
 
       <h2>{barber.name}</h2>
       <p>
-        Rated: {barber.rating} / 5
+        Services: {barber.services.join(", ")} <br />
+        Working Hours:{" "}
+        {Object.entries(barber.workingHours)
+          .map(([day, status]) => `${day}: ${status}`)
+          .join(", ")}
         <br />
       </p>
       <p className={styles.barberBio}>{barber.bio}</p>
