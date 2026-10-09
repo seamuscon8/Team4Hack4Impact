@@ -12,7 +12,7 @@ export const mockBarber: Barber[] = [
     id: 101,
     name: "Kevin Lee",
     bio: "Fades are my highest priority!",
-    imageUrl: "/images/barbers/kevin-lee.jpg",
+    imageUrl: "/images/barber1.jpg",
     services: ["High Taper Fade", "Low Taper Fade", "Mid Fade"],
     workingHours: "Mon-Sat, 9:00 AM-6:30 PM",
   },
