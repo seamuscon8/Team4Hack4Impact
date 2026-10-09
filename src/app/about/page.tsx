@@ -5,17 +5,45 @@ import { BarberCard, createBarber } from "@/components/Barber";
 
 // Creating mock barber profiles
 const barbers = [
-  createBarber("Seamus", 5.0, "bluh bluh bluh bluh bluh", "/images/haircut-stock.jpg"),
+  createBarber(
+    1,
+    "Seamus",
+    "bluh bluh bluh bluh bluh",
+    "/images/haircut-stock.jpg",
+    ["Haircut", "Beard Trim"],
+    "9 AM – 7 PM",
+  ),
 
-  createBarber("Abhay", 5.0, "bluh bluh bluh bluh", "/images/haircut-stock.jpg"),
+  createBarber(
+    2,
+    "Abhay",
+    "bluh bluh bluh bluh",
+    "/images/haircut-stock.jpg",
+    ["Haircut", "Beard Trim"],
+    "9 AM – 7 PM",
+  ),
 
-  createBarber("Arnav", 5.0, "bluh bluh bluh", "/images/haircut-stock.jpg"),
+  createBarber(3, "Arnav", "bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], "9 AM – 7 PM"),
 
-  createBarber("Christian", 5.0, "bluh bluh bluh bluh ", "/images/haircut-stock.jpg"),
+  createBarber(
+    4,
+    "Christian",
+    "bluh bluh bluh bluh ",
+    "/images/haircut-stock.jpg",
+    ["Haircut", "Beard Trim"],
+    "9 AM – 7 PM",
+  ),
 
-  createBarber("Miles", 5.0, "bluh bluh bluh bluh bluh", "/images/haircut-stock.jpg"),
+  createBarber(
+    5,
+    "Miles",
+    "bluh bluh bluh bluh bluh",
+    "/images/haircut-stock.jpg",
+    ["Haircut", "Beard Trim"],
+    "9 AM – 7 PM",
+  ),
 
-  createBarber("Angele", 5.0, "bluh bluh bluh", "/images/haircut-stock.jpg"),
+  createBarber(6, "Angele", "bluh bluh bluh", "/images/haircut-stock.jpg", ["Haircut", "Beard Trim"], "9 AM – 7 PM"),
 ];
 
 export default function About() {
