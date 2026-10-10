@@ -15,3 +15,5 @@ export async function GET(_request: Request, { params }: RouteProps) {
   }
   return NextResponse.json(barber, { status: 200 });
 }
+
+export async function PUT(request: Request, { params }: RouteProps) {}
