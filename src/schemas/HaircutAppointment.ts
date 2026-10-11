@@ -41,6 +41,10 @@ const HaircutAppointmentSchema = new Schema({
     required: [true, "Service is required."],
     trim: true,
   },
+  barberId: {
+    type: Number,
+    required: [true, "Barber ID is required."],
+  },
   barberName: {
     type: String,
     required: true,

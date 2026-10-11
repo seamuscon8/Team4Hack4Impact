@@ -89,6 +89,7 @@ export default function BookNowPage() {
       appointmentDate: new Date(`${values.appointmentDate}T00:00:00`),
       appointmentTime: values.appointmentTime,
       service: values.service,
+      barberId: selectedBarber?.id ?? 0,
       barberName: values.barberName,
       status: "scheduled",
       price: 0,

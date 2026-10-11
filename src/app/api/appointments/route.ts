@@ -1,16 +1,20 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/database/db";
-import HaircutAppointment from "@/schemas/HaircutAppointment";
+import HaircutAppointmentModel from "@/schemas/HaircutAppointment";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
     await connectDB();
 
-    const appointments = await HaircutAppointment.find();
+    const barberId = new URL(request.url).searchParams.get("barberId");
+
+    const appointments = await HaircutAppointmentModel.find(barberId ? { barberId: Number(barberId) } : {});
 
     return NextResponse.json(appointments, { status: 200 });
   } catch (error) {
-    return NextResponse.json({ message: "Failed to retrieve appointments." }, { status: 500 });
+    console.error(error);
+
+    return NextResponse.json({ message: "Unable to retrieve appointments." }, { status: 500 });
   }
 }
 
@@ -36,13 +40,13 @@ export async function POST(request: Request) {
       return NextResponse.json({ message: "Required appointment information is missing." }, { status: 400 });
     }
 
-    const lastAppointment = await HaircutAppointment.findOne().sort({
+    const lastAppointment = await HaircutAppointmentModel.findOne().sort({
       appointmentNumber: -1,
     });
 
     const nextAppointmentNumber = lastAppointment ? lastAppointment.appointmentNumber + 1 : 1;
 
-    const newAppointment = await HaircutAppointment.create({
+    const newAppointment = await HaircutAppointmentModel.create({
       appointmentNumber: nextAppointmentNumber,
       customerName,
       customerEmail,
@@ -57,6 +61,8 @@ export async function POST(request: Request) {
 
     return NextResponse.json(newAppointment, { status: 201 });
   } catch (error) {
+    console.error(error);
+
     return NextResponse.json({ message: "Failed to create appointment." }, { status: 500 });
   }
 }
