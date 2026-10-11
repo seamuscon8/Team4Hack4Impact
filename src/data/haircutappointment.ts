@@ -6,6 +6,7 @@ export interface HaircutAppointment {
   appointmentDate: Date;
   appointmentTime: string;
   service: string;
+  barberId: number;
   barberName: string;
   status: "scheduled" | "completed" | "cancelled";
   price: number;
@@ -20,6 +21,7 @@ export const mockAppointments: HaircutAppointment[] = [
     appointmentDate: new Date("2026-10-01"),
     appointmentTime: "9:30 AM",
     service: "High Taper Fade",
+    barberId: 101,
     barberName: "Kevin Lee",
     status: "scheduled",
     price: 17.5,
