@@ -4,7 +4,7 @@ import { type ChangeEvent, type FormEvent, useMemo, useState } from "react";
 import FormField from "./FormField";
 import Navbar from "@/components/Navbar";
 import { mockBarber } from "@/data/barber";
-import { mockAppointments, type HaircutAppointment } from "@/data/haircutappointment";
+import { type HaircutAppointment } from "@/data/haircutappointment";
 import styles from "./book-now.module.css";
 
 type FormValues = {
@@ -55,6 +55,9 @@ export default function BookNowPage() {
   const [errors, setErrors] = useState<FormErrors>({});
   const [submittedAppointment, setSubmittedAppointment] = useState<HaircutAppointment | null>(null);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const selectedBarber = useMemo(
     () => mockBarber.find((barber) => barber.name === values.barberName),
     [values.barberName],
@@ -72,30 +75,58 @@ export default function BookNowPage() {
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setSubmitError(null);
+
     const validationErrors = validate(values);
 
-    if (Object.keys(validationErrors).length) {
+    if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
       return;
     }
 
-    const appointment: HaircutAppointment = {
-      appointmentNumber: mockAppointments.length + 1,
-      customerName: values.customerName.trim(),
-      customerEmail: values.customerEmail.trim(),
-      customerPhone: values.customerPhone.trim(),
-      appointmentDate: new Date(`${values.appointmentDate}T00:00:00`),
-      appointmentTime: values.appointmentTime,
-      service: values.service,
-      barberId: selectedBarber?.id ?? 0,
-      barberName: values.barberName,
-      status: "scheduled",
-      price: 0,
-    };
+    if (!selectedBarber) {
+      setSubmitError("Please select a valid barber.");
+      return;
+    }
+    setIsSubmitting(true);
 
-    setSubmittedAppointment(appointment);
+    try {
+      const response = await fetch("/api/appointments", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          customerName: values.customerName.trim(),
+          customerEmail: values.customerEmail.trim(),
+          customerPhone: values.customerPhone.trim(),
+          appointmentDate: values.appointmentDate,
+          appointmentTime: values.appointmentTime,
+          service: values.service,
+          barberId: selectedBarber.id,
+          barberName: values.barberName,
+          price: 0,
+        }),
+      });
+
+      const createdAppointment = await response.json();
+
+      if (!response.ok) {
+        setSubmitError(createdAppointment.message ?? "Could not submit your appointment.");
+        return;
+      }
+
+      setSubmittedAppointment({
+        ...createdAppointment,
+        appointmentDate: new Date(createdAppointment.appointmentDate),
+      });
+    } catch {
+      setSubmitError("Could not reach the server. Please try submitting again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const errorProps = (field: FormFieldName) => ({
@@ -119,7 +150,7 @@ export default function BookNowPage() {
         {submittedAppointment ? (
           <div className={styles.confirmation} role="status">
             <h2>Appointment request received!</h2>
-            <p>Thanks, {submittedAppointment.customerName}. Your mock appointment request has been submitted.</p>
+            <p>Thanks, {submittedAppointment.customerName}. Your appointment request has been submitted.</p>
             <div className={styles.details}>
               <span>
                 <strong>{submittedAppointment.service}</strong> with {submittedAppointment.barberName}
@@ -234,9 +265,11 @@ export default function BookNowPage() {
               </FormField>
             </div>
 
-            <button className={styles.submitButton} type="submit">
-              Request appointment
+            <button className={styles.submitButton} type="submit" disabled={isSubmitting}>
+              {isSubmitting ? "Submitting..." : "Request appointment"}
             </button>
+
+            {submitError && <p role="alert">{submitError}</p>}
           </form>
         )}
       </section>

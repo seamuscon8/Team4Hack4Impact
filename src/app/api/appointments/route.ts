@@ -24,20 +24,36 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    const { customerName, customerEmail, customerPhone, appointmentDate, appointmentTime, service, barberName, price } =
-      body;
+    const {
+      customerName,
+      customerEmail,
+      customerPhone,
+      appointmentDate,
+      appointmentTime,
+      service,
+      barberId,
+      barberName,
+      price,
+    } = body;
+
+    const numericBarberId = Number(barberId);
+    const parsedAppointmentDate = new Date(appointmentDate);
 
     if (
       !customerName ||
       !customerEmail ||
       !customerPhone ||
       !appointmentDate ||
+      Number.isNaN(parsedAppointmentDate.getTime()) ||
       !appointmentTime ||
       !service ||
+      barberId === undefined ||
+      !Number.isFinite(numericBarberId) ||
       !barberName ||
-      price === undefined
+      typeof price !== "number" ||
+      price < 0
     ) {
-      return NextResponse.json({ message: "Required appointment information is missing." }, { status: 400 });
+      return NextResponse.json({ message: "Required appointment information is missing or invalid." }, { status: 400 });
     }
 
     const lastAppointment = await HaircutAppointmentModel.findOne().sort({
@@ -51,9 +67,10 @@ export async function POST(request: Request) {
       customerName,
       customerEmail,
       customerPhone,
-      appointmentDate: new Date(appointmentDate),
+      appointmentDate: parsedAppointmentDate,
       appointmentTime,
       service,
+      barberId: numericBarberId,
       barberName,
       status: "scheduled",
       price,
@@ -62,6 +79,10 @@ export async function POST(request: Request) {
     return NextResponse.json(newAppointment, { status: 201 });
   } catch (error) {
     console.error(error);
+
+    if (error instanceof Error && error.name === "ValidationError") {
+      return NextResponse.json({ message: error.message }, { status: 400 });
+    }
 
     return NextResponse.json({ message: "Failed to create appointment." }, { status: 500 });
   }
