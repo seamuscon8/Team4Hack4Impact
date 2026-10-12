@@ -31,6 +31,6 @@
     "lint-staged": "^15",
     "prettier": "^3",
     "typescript": "^5",
-    "vitest": "^5.0.4"
+    "vitest": "^3.2.7"
   }
 }
