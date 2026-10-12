@@ -55,7 +55,7 @@ export default function BarberDashboardPage() {
   useEffect(() => {
     async function loadBarbers() {
       try {
-        const response = await fetch("/api/barber");
+        const response = await fetch("/api/barbers");
         if (!response.ok) throw new Error("Unable to load barbers.");
 
         const data = (await response.json()) as Barber[];
