@@ -1,10 +1,37 @@
+"use client";
+
 import Navbar from "@/components/Navbar";
 import styles from "./about-page.module.css";
 import Image from "next/image";
 import { BarberCard, createBarber } from "@/components/Barber";
 import { mockBarber } from "@/data/barber";
+import type { Barber } from "@/data/barber";
+import { useEffect, useState } from "react";
 
 export default function About() {
+  const [barbers, setBarbers] = useState<Barber[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getBarbers() {
+      try {
+        const response = await fetch("/api/barbers");
+
+        if (!response.ok) {
+          throw new Error("Unable to load barbers");
+        }
+
+        setBarbers(await response.json());
+      } catch (error) {
+        console.error("Failed to load barbers:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getBarbers();
+  }, []);
+
   return (
     <main>
       <Navbar />
@@ -54,9 +81,13 @@ export default function About() {
       <h1 className={styles.barbersHeader}>Meet our Barbers</h1>
 
       <div className={styles.aboutBarbers}>
-        {mockBarber.map((barber) => (
-          <BarberCard key={barber.id} barber={createBarber(barber.name, 5.0, barber.bio, barber.imageUrl)} />
-        ))}
+        {isLoading ? (
+          <p>Loading barbers...</p>
+        ) : (
+          barbers.map((barber) => (
+            <BarberCard key={barber.id} barber={createBarber(barber.name, 5.0, barber.bio, barber.imageUrl)} />
+          ))
+        )}
       </div>
     </main>
   );
