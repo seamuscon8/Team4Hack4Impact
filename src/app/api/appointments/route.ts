@@ -47,18 +47,27 @@ export async function POST(request: Request) {
       price,
     } = body;
 
+    const numericBarberId = Number(barberId);
+    const parsedAppointmentDate = new Date(appointmentDate);
+
     if (
       !customerName ||
       !customerEmail ||
       !customerPhone ||
       !appointmentDate ||
+      Number.isNaN(parsedAppointmentDate.getTime()) ||
       !appointmentTime ||
       !service ||
-      !Number.isInteger(barberId) ||
+      barberId === undefined ||
+  barberId === null ||
+  barberId === "" ||
+!Number.isInteger(numericBarberId) ||
+numericBarberId < 0 || ||
       !barberName ||
-      price === undefined
+      typeof price !== "number" ||
+      price < 0
     ) {
-      return NextResponse.json({ message: "Required appointment information is missing." }, { status: 400 });
+      return NextResponse.json({ message: "Required appointment information is missing or invalid." }, { status: 400 });
     }
 
     const lastAppointment = await HaircutAppointmentModel.findOne().sort({
@@ -72,10 +81,10 @@ export async function POST(request: Request) {
       customerName,
       customerEmail,
       customerPhone,
-      appointmentDate: new Date(appointmentDate),
+      appointmentDate: parsedAppointmentDate,
       appointmentTime,
       service,
-      barberId,
+      barberId: numericBarberId,
       barberName,
       status: "scheduled",
       price,
@@ -84,6 +93,10 @@ export async function POST(request: Request) {
     return NextResponse.json(newAppointment, { status: 201 });
   } catch (error) {
     console.error(error);
+
+    if (error instanceof Error && error.name === "ValidationError") {
+      return NextResponse.json({ message: error.message }, { status: 400 });
+    }
 
     return NextResponse.json({ message: "Failed to create appointment." }, { status: 500 });
   }
