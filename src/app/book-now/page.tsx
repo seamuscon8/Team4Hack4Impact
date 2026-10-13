@@ -1,11 +1,11 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useMemo, useState } from "react";
+import { type ChangeEvent, type FormEvent, useMemo, useState, useEffect } from "react";
 import FormField from "./FormField";
 import Navbar from "@/components/Navbar";
-import { mockBarber } from "@/data/barber";
-import { type HaircutAppointment } from "@/data/haircutappointment";
+import type { Barber } from "@/schemas/barberSchema";
 import styles from "./book-now.module.css";
+import type { HaircutAppointment } from "@/data/haircutappointment";
 
 type FormValues = {
   customerName: string;
@@ -54,13 +54,42 @@ export default function BookNowPage() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submittedAppointment, setSubmittedAppointment] = useState<HaircutAppointment | null>(null);
-
+  const [barbers, setBarbers] = useState<Barber[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function fetchBarbers() {
+      try {
+        const response = await fetch("/api/barbers", {
+          signal: controller.signal,
+        });
+
+        if (!response.ok) {
+          throw new Error("Unable to load barbers.");
+        }
+
+        const data: Barber[] = await response.json();
+
+        if (!controller.signal.aborted) {
+          setBarbers(data);
+        }
+      } catch {
+        if (!controller.signal.aborted) {
+          setSubmitError("Unable to load barbers.");
+        }
+      }
+    }
+
+    void fetchBarbers();
+    return () => controller.abort();
+  }, []);
+
   const selectedBarber = useMemo(
-    () => mockBarber.find((barber) => barber.name === values.barberName),
-    [values.barberName],
+    () => barbers.find((barber) => barber.name === values.barberName),
+    [barbers, values.barberName],
   );
 
   const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -77,6 +106,9 @@ export default function BookNowPage() {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (isSubmitting) return;
+
     setSubmitError(null);
 
     const validationErrors = validate(values);
@@ -90,6 +122,7 @@ export default function BookNowPage() {
       setSubmitError("Please select a valid barber.");
       return;
     }
+
     setIsSubmitting(true);
 
     try {
@@ -106,24 +139,24 @@ export default function BookNowPage() {
           appointmentTime: values.appointmentTime,
           service: values.service,
           barberId: selectedBarber.id,
-          barberName: values.barberName,
+          barberName: selectedBarber.name,
           price: 0,
         }),
       });
 
-      const createdAppointment = await response.json();
+      const data = await response.json();
 
       if (!response.ok) {
-        setSubmitError(createdAppointment.message ?? "Could not submit your appointment.");
+        setSubmitError(data.message ?? "Could not submit appointment.");
         return;
       }
 
       setSubmittedAppointment({
-        ...createdAppointment,
-        appointmentDate: new Date(createdAppointment.appointmentDate),
+        ...data,
+        appointmentDate: new Date(data.appointmentDate),
       });
     } catch {
-      setSubmitError("Could not reach the server. Please try submitting again.");
+      setSubmitError("Could not reach the server. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -209,7 +242,7 @@ export default function BookNowPage() {
                   value={values.barberName}
                 >
                   <option value="">Select a barber</option>
-                  {mockBarber.map((barber) => (
+                  {barbers.map((barber) => (
                     <option key={barber.id} value={barber.name}>
                       {barber.name}
                     </option>
