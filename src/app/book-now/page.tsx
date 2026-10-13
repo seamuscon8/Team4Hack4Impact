@@ -6,49 +6,9 @@ import Navbar from "@/components/Navbar";
 import type { Barber } from "@/schemas/barberSchema";
 import styles from "./book-now.module.css";
 import type { HaircutAppointment } from "@/data/haircutappointment";
-
-type FormValues = {
-  customerName: string;
-  customerEmail: string;
-  customerPhone: string;
-  service: string;
-  barberName: string;
-  appointmentDate: string;
-  appointmentTime: string;
-};
-
-type FormFieldName = keyof FormValues;
-type FormErrors = Partial<Record<FormFieldName, string>>;
-
-const initialValues: FormValues = {
-  customerName: "",
-  customerEmail: "",
-  customerPhone: "",
-  service: "",
-  barberName: "",
-  appointmentDate: "",
-  appointmentTime: "",
-};
+import { initialValues, validate, type FormErrors, type FormFieldName, type FormValues } from "./appointmentValidation";
 
 const appointmentTimes = ["9:00 AM", "10:00 AM", "11:00 AM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"];
-
-function validate(values: FormValues): FormErrors {
-  const errors: FormErrors = {};
-
-  (Object.keys(values) as FormFieldName[]).forEach((field) => {
-    if (!values[field].trim()) errors[field] = "This field is required.";
-  });
-
-  if (values.customerEmail && !/^\S+@\S+\.\S+$/.test(values.customerEmail)) {
-    errors.customerEmail = "Enter a valid email address.";
-  }
-
-  if (values.customerPhone && !/^[0-9+()\-\s]{7,}$/.test(values.customerPhone)) {
-    errors.customerPhone = "Enter a valid phone number.";
-  }
-
-  return errors;
-}
 
 export default function BookNowPage() {
   const [values, setValues] = useState<FormValues>(initialValues);
