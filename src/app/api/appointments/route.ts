@@ -59,10 +59,10 @@ export async function POST(request: Request) {
       !appointmentTime ||
       !service ||
       barberId === undefined ||
-  barberId === null ||
-  barberId === "" ||
-!Number.isInteger(numericBarberId) ||
-numericBarberId < 0 ||
+      barberId === null ||
+      barberId === "" ||
+      !Number.isInteger(numericBarberId) ||
+      numericBarberId < 0 ||
       !barberName ||
       typeof price !== "number" ||
       price < 0
