@@ -20,11 +20,14 @@ export async function POST(request: Request) {
 
     const body = await request.json();
 
-    const { id, name, bio, imageUrl, services, workingHours } = body;
+    const { name, bio, imageUrl, services, workingHours } = body;
 
-    if (id === undefined || !name || !bio || !imageUrl || !services || !workingHours) {
+    if (!name || !bio || !imageUrl || !services || !workingHours) {
       return NextResponse.json({ message: "Required barber information is missing." }, { status: 400 });
     }
+    const latestBarber = await Barber.findOne().sort({ id: -1 }).select("id").lean();
+
+    const id = typeof latestBarber?.id === "number" ? latestBarber.id + 1 : 1;
 
     const newBarber = await Barber.create({
       id,

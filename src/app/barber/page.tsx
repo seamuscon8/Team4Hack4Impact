@@ -1,8 +1,7 @@
 "use client";
 
-import { type ChangeEvent, type FormEvent, useEffect, useMemo, useState } from "react";
+import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
-import { mockAppointments } from "@/data/haircutappointment";
 import FormField from "./FormField";
 import styles from "./barber-page.module.css";
 
@@ -14,9 +13,19 @@ type Barber = {
   services: string[];
   workingHours: string;
 };
+
+type Appointment = {
+  appointmentNumber: string | number;
+  customerName: string;
+  service: string;
+  appointmentDate: string;
+  appointmentTime: string;
+};
+
 type FormValues = Omit<Barber, "id" | "services"> & { services: string };
 type FormFieldName = keyof FormValues;
 type FormErrors = Partial<Record<FormFieldName, string>>;
+type Feedback = { kind: "error" | "success"; text: string } | null;
 
 const workingHoursPattern =
   /^(?:Closed|(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun)(?:-(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun))?,\s(?:1[0-2]|[1-9]):[0-5][0-9]\s(?:AM|PM)-(?:1[0-2]|[1-9]):[0-5][0-9]\s(?:AM|PM))$/;
@@ -28,38 +37,56 @@ const initialValues: FormValues = {
   services: "",
   workingHours: "",
 };
+
 function validate(values: FormValues): FormErrors {
   const errors: FormErrors = {};
+
   (Object.keys(values) as FormFieldName[]).forEach((field) => {
     if (!values[field].trim()) errors[field] = "This field is required.";
   });
-  if (values.imageUrl && !/^https?:\/\/\S+/.test(values.imageUrl)) errors.imageUrl = "Enter a valid image URL.";
+
+  if (values.imageUrl && !/^https?:\/\/\S+/.test(values.imageUrl)) {
+    errors.imageUrl = "Enter a valid image URL.";
+  }
+
+  if (values.workingHours && !workingHoursPattern.test(values.workingHours.trim())) {
+    errors.workingHours = "Use a format like “Mon-Sat, 9:00 AM-6:30 PM” or enter “Closed”.";
+  }
+
   return errors;
+}
+
+async function getErrorMessage(response: Response, fallback: string) {
+  const data = (await response.json().catch(() => null)) as {
+    message?: string;
+  } | null;
+  return data?.message ?? fallback;
 }
 
 export default function BarberDashboardPage() {
   const [barbers, setBarbers] = useState<Barber[]>([]);
+  const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedBarberId, setSelectedBarberId] = useState("");
+  const [search, setSearch] = useState("");
   const [workingHours, setWorkingHours] = useState("");
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<FormErrors>({});
-  const [message, setMessage] = useState("");
+  const [feedback, setFeedback] = useState<Feedback>(null);
   const [loadError, setLoadError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [appointmentsLoading, setAppointmentsLoading] = useState(false);
+  const [appointmentsError, setAppointmentsError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSavingHours, setIsSavingHours] = useState(false);
 
   const selectedBarber = barbers.find((barber) => String(barber.id) === selectedBarberId);
-  const appointments = useMemo(
-    () => mockAppointments.filter((appointment) => appointment.barberName === selectedBarber?.name),
-    [selectedBarber],
-  );
   useEffect(() => {
     async function loadBarbers() {
       try {
         const response = await fetch("/api/barbers");
-        if (!response.ok) throw new Error("Unable to load barbers.");
+        if (!response.ok) throw new Error(await getErrorMessage(response, "Unable to load barbers."));
 
-        const data = (await response.json()) as Barber[];
-        setBarbers(data);
+        setBarbers((await response.json()) as Barber[]);
       } catch (error) {
         setLoadError(error instanceof Error ? error.message : "Unable to load barbers.");
       } finally {
@@ -70,34 +97,106 @@ export default function BarberDashboardPage() {
     void loadBarbers();
   }, []);
 
-  const handleBarberChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const barber = barbers.find((item) => String(item.id) === event.target.value);
-    setSelectedBarberId(event.target.value);
-    setWorkingHours(barber?.workingHours ?? "");
-    setMessage("");
+  useEffect(() => {
+    if (!selectedBarberId) {
+      setAppointments([]);
+      setAppointmentsError("");
+      return;
+    }
+
+    let cancelled = false;
+
+    async function loadAppointments() {
+      setAppointmentsLoading(true);
+      setAppointmentsError("");
+
+      try {
+        const response = await fetch(`/api/appointments?barberId=${encodeURIComponent(selectedBarberId)}`);
+        if (!response.ok) throw new Error(await getErrorMessage(response, "Unable to load appointments."));
+
+        const data = (await response.json()) as Appointment[];
+        if (!cancelled) setAppointments(data);
+      } catch (error) {
+        if (!cancelled) {
+          setAppointments([]);
+          setAppointmentsError(error instanceof Error ? error.message : "Unable to load appointments.");
+        }
+      } finally {
+        if (!cancelled) setAppointmentsLoading(false);
+      }
+    }
+
+    void loadAppointments();
+    return () => {
+      cancelled = true;
+    };
+  }, [selectedBarberId]);
+
+  const selectBarber = (barber: Barber) => {
+    setSelectedBarberId(String(barber.id));
+    setWorkingHours(barber.workingHours);
+    setSearch(barber.name);
+    setFeedback(null);
   };
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    const barber = barbers.find((item) => item.name.toLocaleLowerCase() === value.trim().toLocaleLowerCase());
+
+    setSearch(value);
+
+    if (barber) {
+      selectBarber(barber);
+    } else if (selectedBarberId) {
+      setSelectedBarberId("");
+      setWorkingHours("");
+    }
+  };
+
   const handleFormChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const field = event.target.name as FormFieldName;
     setValues((current) => ({ ...current, [field]: event.target.value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
   };
-  const saveWorkingHours = () => {
-    const value = workingHours.trim();
 
+  const saveWorkingHours = async () => {
+    const value = workingHours.trim();
     if (!selectedBarber) return;
 
     if (!workingHoursPattern.test(value)) {
-      setWorkingHours(selectedBarber.workingHours);
-      setMessage("Use a format like “Mon-Sat, 9:00 AM-6:30 PM” or enter “Closed”.");
+      setFeedback({
+        kind: "error",
+        text: "Use a format like “Mon-Sat, 9:00 AM-6:30 PM” or enter “Closed”.",
+      });
       return;
     }
 
-    setBarbers((current) =>
-      current.map((barber) => (barber.id === selectedBarber.id ? { ...barber, workingHours: value } : barber)),
-    );
+    setIsSavingHours(true);
+    setFeedback(null);
 
-    setMessage("Working hours updated.");
+    try {
+      const response = await fetch(`/api/barbers/${selectedBarber.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ workingHours: value }),
+      });
+
+      if (!response.ok) throw new Error(await getErrorMessage(response, "Unable to update working hours."));
+
+      const updatedBarber = (await response.json()) as Barber;
+      setBarbers((current) => current.map((barber) => (barber.id === updatedBarber.id ? updatedBarber : barber)));
+      setWorkingHours(updatedBarber.workingHours);
+      setFeedback({ kind: "success", text: "Working hours updated." });
+    } catch (error) {
+      setFeedback({
+        kind: "error",
+        text: error instanceof Error ? error.message : "Unable to update working hours.",
+      });
+    } finally {
+      setIsSavingHours(false);
+    }
   };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const validationErrors = validate(values);
@@ -107,7 +206,6 @@ export default function BarberDashboardPage() {
     }
 
     const payload = {
-      ...values,
       name: values.name.trim(),
       bio: values.bio.trim(),
       imageUrl: values.imageUrl.trim(),
@@ -118,26 +216,35 @@ export default function BarberDashboardPage() {
       workingHours: values.workingHours.trim(),
     };
 
+    setIsSubmitting(true);
+    setFeedback(null);
+
     try {
-      const response = await fetch("/api/barber", {
+      const response = await fetch("/api/barbers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-      const data = (await response.json()) as Barber | { message: string };
-      if (!response.ok) throw new Error("message" in data ? data.message : "Unable to add barber.");
 
-      const barber = data as Barber;
+      if (!response.ok) throw new Error(await getErrorMessage(response, "Unable to add barber."));
+
+      const barber = (await response.json()) as Barber;
       setBarbers((current) => [...current, barber]);
       setSelectedBarberId(String(barber.id));
       setWorkingHours(barber.workingHours);
       setValues(initialValues);
       setErrors({});
-      setMessage(`${barber.name} was added.`);
+      setFeedback({ kind: "success", text: `${barber.name} was added.` });
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : "Unable to add barber.");
+      setFeedback({
+        kind: "error",
+        text: error instanceof Error ? error.message : "Unable to add barber.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
+
   const errorProps = (field: FormFieldName) => ({
     "aria-invalid": Boolean(errors[field]),
     "aria-describedby": errors[field] ? `${field}-error` : undefined,
@@ -159,25 +266,24 @@ export default function BarberDashboardPage() {
         ) : (
           <>
             <div className={styles.barberPicker}>
-              <label className={styles.eyebrow} htmlFor="barber">
-                Barber:
+              <label className={styles.eyebrow} htmlFor="barber-search">
+                Find a barber
               </label>
               <div className={styles.selectWrap}>
-                <select
-                  id="barber"
+                <input
                   className={styles.barberSelect}
-                  onChange={handleBarberChange}
-                  value={selectedBarberId}
-                >
-                  <option value="">Select</option>
-
-                  {barbers.map((barber) => (
-                    <option key={barber.id} value={barber.id}>
-                      {barber.name}
-                    </option>
-                  ))}
-                </select>
+                  id="barber-search"
+                  list="barber-options"
+                  onChange={handleSearchChange}
+                  placeholder="Start typing a name"
+                  value={search}
+                />
               </div>
+              <datalist id="barber-options">
+                {barbers.map((barber) => (
+                  <option key={barber.id} value={barber.name} />
+                ))}
+              </datalist>
             </div>
             {barbers.length === 0 ? (
               <p>No barbers available. Add one below.</p>
@@ -185,15 +291,12 @@ export default function BarberDashboardPage() {
               <>
                 <section className={styles.barberCard}>
                   <h2 className={styles.barberName}>{selectedBarber.name}</h2>
-
                   {selectedBarber.bio && <p className={styles.bio}>{selectedBarber.bio}</p>}
-
                   <div className={styles.detailList}>
                     <div className={styles.detail}>
                       <span className={styles.detailLabel}>Services</span>
                       <span>{selectedBarber.services.join(", ")}</span>
                     </div>
-
                     <div className={styles.detail}>
                       <span className={styles.detailLabel}>Working hours</span>
                       <span>{selectedBarber.workingHours}</span>
@@ -206,29 +309,30 @@ export default function BarberDashboardPage() {
                     <h2 id="edit-hours-heading">Edit working hours</h2>
                     <p>Update {selectedBarber.name}&apos;s regular schedule.</p>
                   </div>
-
                   <div className={styles.hoursRow}>
                     <input
                       id="selectedWorkingHours"
+                      disabled={isSavingHours}
                       onChange={(event) => setWorkingHours(event.target.value)}
                       value={workingHours}
                     />
-
-                    <button type="button" onClick={saveWorkingHours}>
-                      Save hours
+                    <button type="button" disabled={isSavingHours} onClick={saveWorkingHours}>
+                      {isSavingHours ? "Saving…" : "Save hours"}
                     </button>
                   </div>
                 </section>
-
                 <section className={styles.card}>
                   <h2>Appointments</h2>
-
-                  {appointments.length ? (
+                  {appointmentsLoading ? (
+                    <p role="status">Loading appointments…</p>
+                  ) : appointmentsError ? (
+                    <p role="alert">{appointmentsError}</p>
+                  ) : appointments.length ? (
                     <ul className={styles.appointments}>
                       {appointments.map((appointment) => (
                         <li key={appointment.appointmentNumber}>
                           <strong>{appointment.customerName}</strong> — {appointment.service},{" "}
-                          {appointment.appointmentDate.toLocaleDateString()} at {appointment.appointmentTime}
+                          {new Date(appointment.appointmentDate).toLocaleDateString()} at {appointment.appointmentTime}
                         </li>
                       ))}
                     </ul>
@@ -238,11 +342,15 @@ export default function BarberDashboardPage() {
                 </section>
               </>
             ) : (
-              <p>Select a barber to view their details and appointments.</p>
+              <p>
+                {search
+                  ? "Choose a barber from the matching suggestions."
+                  : "Start typing a barber's name to view their details and appointments."}
+              </p>
             )}
-            {message && (
-              <p className={styles.message} role="status">
-                {message}
+            {feedback && (
+              <p className={styles.message} role={feedback.kind === "error" ? "alert" : "status"}>
+                {feedback.text}
               </p>
             )}
             <section className={styles.addBarber}>
@@ -263,9 +371,19 @@ export default function BarberDashboardPage() {
                     {...errorProps("bio")}
                     id="bio"
                     name="bio"
-                    placeholder="A short introduction and approach to haircuts..."
                     onChange={handleFormChange}
+                    placeholder="A short introduction and approach to haircuts..."
                     value={values.bio}
+                  />
+                </FormField>
+                <FormField error={errors.imageUrl} htmlFor="imageUrl" label="Image URL">
+                  <input
+                    {...errorProps("imageUrl")}
+                    id="imageUrl"
+                    name="imageUrl"
+                    onChange={handleFormChange}
+                    placeholder="https://example.com/barber.jpg"
+                    value={values.imageUrl}
                   />
                 </FormField>
                 <FormField error={errors.services} htmlFor="services" label="Services (comma-separated)">
@@ -273,8 +391,8 @@ export default function BarberDashboardPage() {
                     {...errorProps("services")}
                     id="services"
                     name="services"
-                    placeholder="e.g. fades, scissor cuts, natural texture"
                     onChange={handleFormChange}
+                    placeholder="e.g. fades, scissor cuts, natural texture"
                     value={values.services}
                   />
                 </FormField>
@@ -283,13 +401,13 @@ export default function BarberDashboardPage() {
                     {...errorProps("workingHours")}
                     id="workingHours"
                     name="workingHours"
-                    placeholder="Mon-Sat, 9:00 AM-6:30 PM"
                     onChange={handleFormChange}
+                    placeholder="Mon-Sat, 9:00 AM-6:30 PM"
                     value={values.workingHours}
                   />
                 </FormField>
-                <button className={styles.submitButton} type="submit">
-                  Add barber
+                <button className={styles.submitButton} disabled={isSubmitting} type="submit">
+                  {isSubmitting ? "Adding…" : "Add barber"}
                 </button>
               </form>
             </section>

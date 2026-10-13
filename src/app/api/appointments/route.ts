@@ -8,7 +8,18 @@ export async function GET(request: Request) {
 
     const barberId = new URL(request.url).searchParams.get("barberId");
 
-    const appointments = await HaircutAppointmentModel.find(barberId ? { barberId: Number(barberId) } : {});
+    if (barberId !== null) {
+      const parsedBarberId = Number(barberId);
+
+      if (!Number.isInteger(parsedBarberId) || parsedBarberId < 0) {
+        return NextResponse.json({ message: "Invalid barber ID." }, { status: 400 });
+      }
+
+      const appointments = await HaircutAppointmentModel.find({ barberId: parsedBarberId });
+      return NextResponse.json(appointments, { status: 200 });
+    }
+
+    const appointments = await HaircutAppointmentModel.find();
 
     return NextResponse.json(appointments, { status: 200 });
   } catch (error) {
@@ -48,7 +59,10 @@ export async function POST(request: Request) {
       !appointmentTime ||
       !service ||
       barberId === undefined ||
-      !Number.isFinite(numericBarberId) ||
+      barberId === null ||
+      barberId === "" ||
+      !Number.isInteger(numericBarberId) ||
+      numericBarberId < 0 ||
       !barberName ||
       typeof price !== "number" ||
       price < 0
