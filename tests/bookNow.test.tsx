@@ -10,11 +10,11 @@ beforeEach(() => {
 
 async function fillRequiredFields() {
   fireEvent.change(screen.getByLabelText("Customer name"), {
-    target: { value: "Angele" },
+    target: { value: "McSparkleButt" },
   });
 
   fireEvent.change(screen.getByLabelText("Email address"), {
-    target: { value: "angele@example.com" },
+    target: { value: "sunshinefarts@gmail.com" },
   });
 
   fireEvent.change(screen.getByLabelText("Phone number"), {
@@ -22,11 +22,11 @@ async function fillRequiredFields() {
   });
 
   fireEvent.change(screen.getByLabelText("Barber"), {
-    target: { value: "Seamus" },
+    target: { value: "Kevin Lee" },
   });
 
   fireEvent.change(screen.getByLabelText("Service"), {
-    target: { value: "Haircut" },
+    target: { value: "High Taper Fade" },
   });
 
   fireEvent.change(screen.getByLabelText("Appointment date"), {
