@@ -62,7 +62,7 @@ export async function POST(request: Request) {
   barberId === null ||
   barberId === "" ||
 !Number.isInteger(numericBarberId) ||
-numericBarberId < 0 || ||
+numericBarberId < 0 ||
       !barberName ||
       typeof price !== "number" ||
       price < 0
