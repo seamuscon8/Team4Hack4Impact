@@ -11,7 +11,8 @@
     "format": "prettier --write .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepare": "husky"
+    "prepare": "husky",
+    "test:run": "vitest run"
   },
   "dependencies": {
     "mongoose": "^8",
