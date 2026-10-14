@@ -10,6 +10,7 @@
     "lint:fix": "next lint --fix",
     "format": "prettier --write .",
     "test": "vitest run",
+    "test:run": "vitest run",
     "test:watch": "vitest",
     "prepare": "husky"
   },
@@ -38,6 +39,7 @@
     "vitest": "^3.2.7"
   },
   "allowScripts": {
-    "esbuild@0.28.2": true
+    "esbuild@0.28.2": true,
+    "fsevents@2.3.3": true
   }
 }

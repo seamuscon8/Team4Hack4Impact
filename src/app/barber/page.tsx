@@ -4,6 +4,7 @@ import { type ChangeEvent, type FormEvent, useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import FormField from "./FormField";
 import styles from "./barber-page.module.css";
+import { findBarberByName, isValidWorkingHours } from "@/lib/barberDashboard";
 
 type Barber = {
   id: number;
@@ -49,7 +50,7 @@ function validate(values: FormValues): FormErrors {
     errors.imageUrl = "Enter a valid image URL.";
   }
 
-  if (values.workingHours && !workingHoursPattern.test(values.workingHours.trim())) {
+  if (values.workingHours && !isValidWorkingHours(values.workingHours)) {
     errors.workingHours = "Use a format like “Mon-Sat, 9:00 AM-6:30 PM” or enter “Closed”.";
   }
 
@@ -141,7 +142,7 @@ export default function BarberDashboardPage() {
 
   const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    const barber = barbers.find((item) => item.name.toLocaleLowerCase() === value.trim().toLocaleLowerCase());
+    const barber = findBarberByName(barbers, value);
 
     setSearch(value);
 
