@@ -1,6 +1,6 @@
 import mongoose, { Schema, models, model, Model } from "mongoose";
 
-interface Barber {
+export interface Barber {
   id: number;
   name: string;
   bio: string;
