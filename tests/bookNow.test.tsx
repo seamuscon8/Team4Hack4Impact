@@ -65,12 +65,12 @@ describe("BookNowPage", () => {
     render(<BookNowPage />);
 
     fireEvent.change(screen.getByLabelText("Phone number"), {
-      target: { value: "abc" },
+      target: { value: "123" },
     });
 
     fireEvent.click(screen.getByText("Request appointment"));
 
-    const error = await screen.findByText("Enter a valid phone number.");
+    const error = await screen.findByText("Enter a valid 10-digit phone number.");
     expect(error).toBeTruthy();
   });
 });
